@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'registerproduct.dart';
 
 class ShopPage extends StatelessWidget{
   @override
@@ -56,7 +57,7 @@ class ShopPage extends StatelessWidget{
           ),
         ),
         OutlineButton(
-          onPressed: (){},
+          onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new HomeMaterial()));},
           borderSide: BorderSide(
             width: 5.0,
             color: Colors.deepPurpleAccent

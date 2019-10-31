@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'horizontal_listview.dart';
 import 'products_grid_view.dart';
+import 'cart.dart';
 class PlaceOrder extends StatefulWidget {
   @override
   _PlaceOrderState createState() => _PlaceOrderState();
@@ -34,7 +35,8 @@ class _PlaceOrderState extends State<PlaceOrder> {
         title: Text('Place Order'),
         actions: <Widget>[
           new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
-          new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),onPressed: (){},)
+          new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),
+          onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Cart()));},)
         ],
       ),
       drawer: new Drawer(

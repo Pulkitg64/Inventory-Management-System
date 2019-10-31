@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'placeorder.dart';
+import 'cart.dart';
 class ProductViewDetail extends StatefulWidget {
   final product_detail_name;
   final product_detail_price;
@@ -26,7 +27,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
           child: Text('Place Order')),
         actions: <Widget>[
           new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
-          new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),onPressed: (){},)
+          new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Cart()));},)
         ],
       ),
       body: ListView(
