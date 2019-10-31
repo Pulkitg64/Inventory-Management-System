@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
-import 'container_widget.dart';
-import 'text_widget.dart';
-import 'appar_widget.dart';
-import 'column_widget.dart';
-import 'row_widget.dart';
-import 'button_widget.dart';
-import 'stack_widget.dart';
 import 'customer.dart';
 import 'shopkeeper.dart';
-import 'placeorder.dart';
 
 void main() => runApp(new MyApp());
 
@@ -24,18 +16,8 @@ class MyApp extends StatelessWidget {
       ),
       home: new HomePage(),
       routes: <String, WidgetBuilder>{
-        'Place Order': (BuildContext context)=> PlaceOrder(),
         'Customer': (BuildContext context)=> CustPage(),
         'Shopkeeper': (BuildContext context)=> ShopPage(),
-        'Text': (BuildContext context) => TextWidget(),
-        'Appbar': (BuildContext context) => AppBarWidget(),
-        'Container' : (BuildContext context) => ContainerWidget(),
-        'Column' : (BuildContext context) => ColumnWidget(),
-        'Row' : (BuildContext context) => RowWidget(),
-        'Button' : (BuildContext context) => ButtonWidget(),
-        'Stack' : (BuildContext context) => StackWidget(),
-
-
       },
     );
   }
@@ -45,7 +27,7 @@ class HomePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    var widgetList = ["Place Order","Customer","Shopkeeper","Text", "Appbar", "Container", "Column", "Row", "Button", "Stack" ];
+    var widgetList = ["Customer","Shopkeeper",];
 
     return Scaffold(
       appBar: AppBar(

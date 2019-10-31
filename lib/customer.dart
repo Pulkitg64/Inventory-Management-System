@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'placeorder.dart';
 
+
 class CustPage extends StatelessWidget{
   @override
  Widget build(BuildContext context) {
@@ -14,7 +15,9 @@ class CustPage extends StatelessWidget{
         children: <Widget>[
           MaterialButton(
           minWidth: 5.0,
-          onPressed: (){},
+          onPressed: ()=> Navigator.of(context).push(
+              MaterialPageRoute(builder: (context)=> new PlaceOrder())
+            ),
           colorBrightness: Brightness.dark,
           color: Colors.deepPurpleAccent,
           elevation: 20.0,

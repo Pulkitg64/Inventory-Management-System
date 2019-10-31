@@ -21,7 +21,9 @@ class _PlaceOrderState extends State<PlaceOrder> {
         AssetImage('images/c4.jpg'),
         AssetImage('images/c5.jpg'),
       ],
+      indicatorBgPadding: 4.0,
       dotSize: 4.0,
+      dotBgColor: Colors.transparent,
       animationCurve: Curves.fastOutSlowIn,
       animationDuration: Duration(milliseconds: 1000),
     ),
@@ -50,11 +52,17 @@ class _PlaceOrderState extends State<PlaceOrder> {
           Padding(padding: const EdgeInsets.all(8.0),
           child: Text('Category'),),
           //Horizontal List View
+
           HorizontalList(),
-          
-          //Padding Widget
-          Padding(padding: const EdgeInsets.all(40.0),
-          child: Text('Recent Products', textAlign: TextAlign.left,),),
+          Divider(),
+         
+          Container(
+            height: 20.0,
+            child: Text('  Recent Products'),
+          ),
+          // //Padding Widget
+          // Padding(padding: const EdgeInsets.all(35.0),
+          // child: Text('Recent Products', textAlign: TextAlign.left,textDirection: TextDirection.ltr,),),
 
           //grid View
 
