@@ -1,4 +1,4 @@
-# ecommerce
+# E-Retail Using Inventory Management System
 
 A new Flutter project.
 
