@@ -46,10 +46,13 @@ class _ProductsGridViewState extends State<ProductsGridView> {
         crossAxisCount: 2
       ),
       itemBuilder:(BuildContext context,int index){
-        return Single_prod(
-          product_name: product_list[index]['name'],
-          product_pictures: product_list[index]['picture'],
-          product_price: product_list[index]['price'],
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Single_prod(
+            product_name: product_list[index]['name'],
+            product_pictures: product_list[index]['picture'],
+            product_price: product_list[index]['price'],
+          ),
         );
       },
       

@@ -57,6 +57,7 @@ class Category extends StatelessWidget {
         width: 150.0,
         child:ListTile(
           title:Image.asset(
+          // IMAGE LOCATION
             ImageLocation,
             width: 100.0,
             height:80.0,

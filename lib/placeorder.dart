@@ -46,13 +46,19 @@ class _PlaceOrderState extends State<PlaceOrder> {
           ],
         )
       ),
-      body: ListView(
+      body: Column(
         children: <Widget>[
           //image carousel begins 
           image_carousel,
+
+          Divider(),
           //Padding Widget
-          Padding(padding: const EdgeInsets.all(8.0),
-          child: Text('Category'),),
+          Padding(padding: const EdgeInsets.all(1.0),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text('  Category'),
+            ),
+          ),
           //Horizontal List View
 
           HorizontalList(),
@@ -60,7 +66,8 @@ class _PlaceOrderState extends State<PlaceOrder> {
          
           Container(
             height: 20.0,
-            child: Text('  Recent Products'),
+            child: Text('  Recent Products',),
+            alignment: Alignment.centerLeft,
           ),
           // //Padding Widget
           // Padding(padding: const EdgeInsets.all(35.0),
@@ -68,8 +75,8 @@ class _PlaceOrderState extends State<PlaceOrder> {
 
           //grid View
 
-          Container(
-            height: 240.0,
+          Flexible(
+            
             child: ProductsGridView(),
           )
 
