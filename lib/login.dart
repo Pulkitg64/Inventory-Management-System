@@ -213,28 +213,34 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   // =========================================
-                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                      // ===================FORGOT PASSWORD======================
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Forgot password",textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 15.0),
-                              ),
-                      ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Container(
+                     color: Colors.white.withOpacity(0.6),
+                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                        // ===================FORGOT PASSWORD======================
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Forgot password",textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 15.0),
+                                ),
+                        ),
 
-                        // ===================SIGN UP======================
-                     Padding(padding: const EdgeInsets.all(8.0),          
-                      child: InkWell(
-                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
-                       },                
-                      child: Text("Create an account",textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 15.0)),
-                      )            
-                     )                 
-                  ],
-                ),                   
+                          // ===================SIGN UP======================
+                       Padding(padding: const EdgeInsets.all(8.0),          
+                        child: InkWell(
+                         onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => signUp()));
+                         },                
+                        child: Text("Create an account",textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 15.0)),
+                        )            
+                       )                 
+                    ],
+                ),
+                   ),
+                 ),                   
                                               
                                 
                 Expanded(child: Container(),),                    
