@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: new HomePage(),
+      home: new HomePage(), 
       routes: <String, WidgetBuilder>{
         'Customer': (BuildContext context)=> Login(),
         'Shopkeeper': (BuildContext context)=> ShopPage(),

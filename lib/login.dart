@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'customer.dart';
-import 'main.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -212,7 +212,7 @@ class _LoginState extends State<Login> {
                       )
                     ),
                   ),
-
+                  Text("Don't have a account! Please Click Here", style: TextStyle(color: Colors.white,),textAlign: TextAlign.center, ),
                   Expanded(child: Container(),),
                   //===============================SIGN IN WITH GOOGLE======================
                   Divider(color: Colors.white,),
