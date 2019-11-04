@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'customer.dart';
+import 'signup.dart';
 
 
 class Login extends StatefulWidget {
@@ -131,8 +132,7 @@ class _LoginState extends State<Login> {
                   child: Column(
                     children: <Widget>[
                       //=====================EMAIL FIELD===================
-                     Padding(
-                      padding:const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
+                     Padding(padding: const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                        child: Material(
                         borderRadius: BorderRadius.circular(10.0),
                         color: Colors.white.withOpacity(0.8),
@@ -159,7 +159,7 @@ class _LoginState extends State<Login> {
                              },
                            ),
                           ),
-                        ),
+                        ), 
                       ),
 
                       // ==============PASSWORD FIELD ==============================
@@ -212,8 +212,32 @@ class _LoginState extends State<Login> {
                       )
                     ),
                   ),
-                  Text("Don't have a account! Please Click Here", style: TextStyle(color: Colors.white,),textAlign: TextAlign.center, ),
-                  Expanded(child: Container(),),
+                  // =========================================
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                      // ===================FORGOT PASSWORD======================
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Forgot password",textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 15.0),
+                              ),
+                      ),
+
+                        // ===================SIGN UP======================
+                     Padding(padding: const EdgeInsets.all(8.0),          
+                      child: InkWell(
+                       onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                       },                
+                      child: Text("Create an account",textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 15.0)),
+                      )            
+                     )                 
+                  ],
+                ),                   
+                                              
+                                
+                Expanded(child: Container(),),                    
                   //===============================SIGN IN WITH GOOGLE======================
                   Divider(color: Colors.white,),
                   Text("Other Sign In Options", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),),
