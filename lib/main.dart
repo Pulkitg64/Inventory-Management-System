@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'customer.dart';
 import 'shopkeeper.dart';
-
-void main() => runApp(new MyApp());
-
+import 'login.dart';
+void main(){ 
+  runApp(new MyApp());
+}
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       home: new HomePage(),
       routes: <String, WidgetBuilder>{
-        'Customer': (BuildContext context)=> CustPage(),
+        'Customer': (BuildContext context)=> Login(),
         'Shopkeeper': (BuildContext context)=> ShopPage(),
       },
     );

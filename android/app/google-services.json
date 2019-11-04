@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "750000513155",
+    "firebase_url": "https://inventory-management-sys-c2402.firebaseio.com",
+    "project_id": "inventory-management-sys-c2402",
+    "storage_bucket": "inventory-management-sys-c2402.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750000513155:android:2089dd13b17de333cebbb6",
+        "android_client_info": {
+          "package_name": "com.example.hello_world"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750000513155-s8q9t156tiovqq9hua560dhpq31312ur.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hello_world",
+            "certificate_hash": "d984be89cf2a10907acc0f0136e600658cf31b77"
+          }
+        },
+        {
+          "client_id": "750000513155-34rvjqnj63v38v1mqe1a6p5f6jukq6aq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-pG_DhDfwrSqbTzo2hGOKs7oE1-pgvtI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750000513155-34rvjqnj63v38v1mqe1a6p5f6jukq6aq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
