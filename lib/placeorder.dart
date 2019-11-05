@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'main.dart';
 import 'horizontal_listview.dart';
 import 'products_grid_view.dart';
 import 'cart.dart';
@@ -42,7 +43,50 @@ class _PlaceOrderState extends State<PlaceOrder> {
       drawer: new Drawer(
         child: new ListView(
           children: <Widget>[
+            new  UserAccountsDrawerHeader(
+             accountName: Text('Priyanshu'),
+             accountEmail: Text('priyanshu@gmail.com'),
+         currentAccountPicture: GestureDetector(
+           child: new CircleAvatar(
+             backgroundColor: Colors.orange ,
+             child: Icon(Icons.person,color: Colors.white,),
+           ),
+         ),
+           decoration: new BoxDecoration(
+             color: Colors.blueGrey
+           ),
+         ),
 
+         // Body
+            
+          InkWell(
+            onTap: (){},
+            child: ListTile(
+              title:Text('Home Page'),
+              leading: Icon(Icons.home),
+              ),
+          ),
+            InkWell(
+              onTap: (){},
+              child: ListTile(
+                title:Text('My Account'),
+                leading: Icon(Icons.person),
+              ),
+            ),
+            InkWell(
+              onTap: (){},
+              child: ListTile(
+                title:Text('My Orders'),
+                leading: Icon(Icons.shopping_basket),
+              ),
+            ),InkWell(
+              onTap: (){},
+              child: ListTile(
+                title:Text('categories'),
+                leading: Icon(Icons.dashboard),
+              ),
+            )
+          
           ],
         )
       ),

@@ -22,6 +22,8 @@ class _signUpState extends State<signUp> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _nameTextController = TextEditingController();
   TextEditingController _confirmpasswordTextController = TextEditingController();
+  bool hidePass = true;
+
   bool loading= false;
     @override
   Widget build(BuildContext context) {
@@ -118,23 +120,33 @@ class _signUpState extends State<signUp> {
                         elevation: 0.0,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 12.0),
-                          child: TextFormField(
-                            controller: _passwordTextController,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Password",
-                              icon: Icon(Icons.lock_outline),
-                            ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "The password field cannot be empty";
-                            } 
-                            else if (value.length < 6) {
-                                return "the password has to be at least 6 characters long";
-                              }
+                          child: ListTile(
+                            title: TextFormField(
+                              controller: _passwordTextController,
+                              obscureText: hidePass,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Password",
+                                icon: Icon(Icons.lock_outline),
+                              ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "The password field cannot be empty";
+                              } 
+                              else if (value.length < 6) {
+                                  return "the password has to be at least 6 characters long";
+                                }
+                               
                          return null;
                          },
                         ),
+                        trailing: IconButton(icon: Icon(Icons.remove_red_eye),onPressed: (){
+                          setState(() {
+                           hidePass= !hidePass; 
+                          });
+                        },
+                        ),
+                          ),
                       ),
                     ),
                    ),
@@ -146,23 +158,36 @@ class _signUpState extends State<signUp> {
                         elevation: 0.0,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 12.0),
-                          child: TextFormField(
-                            controller: _confirmpasswordTextController,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Confirm Password",
-                              icon: Icon(Icons.lock_outline),
-                            ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "The password field cannot be empty";
-                            } 
-                            else if (value.length < 6) {
-                                return "the password has to be at least 6 characters long";
+                          child: ListTile(
+                              title: TextFormField(
+                              controller: _confirmpasswordTextController,
+                              obscureText: hidePass,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Confirm Password",
+                                icon: Icon(Icons.lock_outline),
+                              ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "The password field cannot be empty";
+                              } 
+                              else if (value.length < 6) {
+                                  return "the password has to be at least 6 characters long";
                               }
+                              else if(_passwordTextController.text!=value)
+                              {
+                                  return "The Password do not match";
+                              }        
                          return null;
                          },
                         ),
+                        trailing: IconButton(icon: Icon(Icons.remove_red_eye),onPressed: (){
+                          setState(() {
+                           hidePass= !hidePass; 
+                          });
+                        },
+                        ),
+                       ),
                       ),
                     ),
                    ),
