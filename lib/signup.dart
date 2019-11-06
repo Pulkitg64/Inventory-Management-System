@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,6 +7,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'customer.dart';
 import 'login.dart';
+import 'db/users.dart';
+import 'placeorder.dart';
+import 'main.dart';
 
 
 class signUp extends StatefulWidget {
@@ -16,8 +20,8 @@ class signUp extends StatefulWidget {
 class _signUpState extends State<signUp> {
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final _formkey = GlobalKey<FormState>();
-
+  final _formKey = GlobalKey<FormState>();
+  UserServices _userServices = UserServices();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _nameTextController = TextEditingController();
@@ -52,7 +56,7 @@ class _signUpState extends State<signUp> {
               padding: const EdgeInsets.only(top: 150.0),
               child: Center(
                 child: Form(
-                  key: _formkey,
+                  key: _formKey,
                   child: Column(
                     children: <Widget>[
 
@@ -198,64 +202,84 @@ class _signUpState extends State<signUp> {
                       borderRadius: BorderRadius.circular(20.0),
                       color: Colors.red,
                       elevation: 0.0,
-                      child: MaterialButton( onPressed: (){},
-                                 // onPressed: () async{
-                                    //   if(_formKey.currentState.validate()){
-                                    //     if(!await user.signIn(_email.text, _password.text))
-                                    //   _key.currentState.showSnackBar(SnackBar(content: Text("Sign in failed")));
-                                    //    }
-                                    
+                      child: MaterialButton( onPressed: ()async{
+                        validateForm();
+                      },                                                            
                       minWidth: MediaQuery.of(context).size.width,
-                      child: Text("Register",textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),
-                        ),
-                      )
-                    ),
-                  ),
-                  
-                  // ===============Login==========================
-                  Padding(
-                   padding: const EdgeInsets.all(8.0),
-                   child: Container(
-                     color: Colors.white.withOpacity(0.6),
-                     child: 
-                       Padding(padding: const EdgeInsets.all(8.0),          
-                       child: InkWell(
-                         onTap: (){
+                       child: Text("Register",textAlign: TextAlign.center,
+                       style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),
+                     ),
+                       )
+                       ),
+                     ),
+                            
+                     // ===============Login==========================
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: Colors.white.withOpacity(0.6),
+                      child: 
+                      Padding(padding: const EdgeInsets.all(8.0),          
+                        child: InkWell(
+                          onTap: (){
                            Navigator.pop(context);
-                         },              
+                          },              
                           child: Text("Login",textAlign: TextAlign.center,style: TextStyle(color: Colors.red,fontWeight: FontWeight.w600,fontSize: 15.0)),
                         )            
-                       )                 
-                      ),
-                    ),                                  
-                    
-                    
-                    
-                    
-                    ],
-                  ),
-                ),
+                      )                 
+                    ),
+                  ),                                            
+               ],
               ),
             ),
           ),
-          Visibility(
-            visible: loading ?? true,
-            child: Center(
-              child: Container(
-                alignment: Alignment.center,
-                color: Colors.white.withOpacity(0.9),
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-                 )
-              ),
-            ),
-          )
-        ],
+        ),
       ),
+        Visibility(
+          visible: loading ?? true,
+          child: Center(
+            child: Container(
+              alignment: Alignment.center,
+              color: Colors.white.withOpacity(0.9),
+              child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+            )
+           ),
+          ),
+         )
+       ],
+     ),
     );
   }
+                        
   
+  Future validateForm() async {
+    FormState formState = _formKey.currentState;
+
+    if (formState.validate()) {
+      formState.reset();
+      FirebaseUser user = await firebaseAuth.currentUser();
+      if (user == null) {
+        firebaseAuth
+            .createUserWithEmailAndPassword(
+                email: _emailTextController.text,
+                password: _passwordTextController.text,)
+            .then((user)=> {
+            _userServices.createUser(
+            {
+            "username": _nameTextController.text,
+            "email": _emailTextController.text,
+           // "password": _passwordTextController
+          //  "userId": user.uid,
+            }
+            )
+           }).catchError((err) => {print(err.toString())});
+   Navigator.pushReplacement(
+    context, MaterialPageRoute(builder: (context) => CustPage()));
+
+      }
+    }
+  }
 
 } 
 

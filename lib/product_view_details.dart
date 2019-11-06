@@ -187,9 +187,6 @@ class _SimilarProductsState extends State<SimilarProducts> {
       },
       
     );
-    return Container(
-      
-    );
   }
 }
 

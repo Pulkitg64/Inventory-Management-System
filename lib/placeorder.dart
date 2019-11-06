@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:hello_world/customer.dart';
 import 'main.dart';
 import 'horizontal_listview.dart';
 import 'products_grid_view.dart';
 import 'cart.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'login.dart';
 class PlaceOrder extends StatefulWidget {
   @override
   _PlaceOrderState createState() => _PlaceOrderState();
@@ -40,55 +43,84 @@ class _PlaceOrderState extends State<PlaceOrder> {
           onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Cart()));},)
         ],
       ),
-      drawer: new Drawer(
+       drawer: new Drawer(
         child: new ListView(
           children: <Widget>[
-            new  UserAccountsDrawerHeader(
-             accountName: Text('Priyanshu'),
-             accountEmail: Text('priyanshu@gmail.com'),
-         currentAccountPicture: GestureDetector(
-           child: new CircleAvatar(
-             backgroundColor: Colors.orange ,
-             child: Icon(Icons.person,color: Colors.white,),
-           ),
-         ),
-           decoration: new BoxDecoration(
-             color: Colors.blueGrey
-           ),
-         ),
-
-         // Body
-            
-          InkWell(
-            onTap: (){},
-            child: ListTile(
-              title:Text('Home Page'),
-              leading: Icon(Icons.home),
+//            header
+            new UserAccountsDrawerHeader(
+              accountName: Text('Priyanshu'),
+              accountEmail: Text('pgupta@gmail.com'),
+              currentAccountPicture: GestureDetector(
+                child: new CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: Icon(Icons.person, color: Colors.white,),
+                ),
               ),
-          ),
+              decoration: new BoxDecoration(
+                  color: Colors.orange
+              ),
+            ),
+
+//            body
+
+            InkWell(
+              onTap: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new CustPage()));
+              },
+              child: ListTile(
+                title: Text('Home Page'),
+                leading: Icon(Icons.home),
+              ),
+            ),
+
             InkWell(
               onTap: (){},
               child: ListTile(
-                title:Text('My Account'),
+                title: Text('My account'),
                 leading: Icon(Icons.person),
               ),
             ),
+
             InkWell(
               onTap: (){},
               child: ListTile(
-                title:Text('My Orders'),
+                title: Text('My Orders'),
                 leading: Icon(Icons.shopping_basket),
               ),
-            ),InkWell(
+            ),
+
+            InkWell(
               onTap: (){},
               child: ListTile(
-                title:Text('categories'),
+                title: Text('Categories'),
                 leading: Icon(Icons.dashboard),
               ),
-            )
-          
+            ),
+
+            InkWell(
+              onTap: (){},
+              child: ListTile(
+                title: Text('Favourites'),
+                leading: Icon(Icons.favorite),
+              ),
+            ),
+
+            Divider(),
+
+            InkWell(
+              onTap: (){
+                FirebaseAuth.instance.signOut().then((value){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                });
+              },
+              child: ListTile(
+                title: Text('Log out'),
+                leading: Icon(Icons.transit_enterexit, color: Colors.grey,),
+              ),
+            ),
+
           ],
-        )
+        ),
       ),
       body: Column(
         children: <Widget>[

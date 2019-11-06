@@ -64,7 +64,7 @@ class Single_cart_product extends StatelessWidget {
             
             Container(
               alignment: Alignment.bottomLeft,
-              child: Text("\$$cart_product_price",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold,color: Colors.red),)
+              child: Text("\₹$cart_product_price",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold,color: Colors.red),)
             ), 
             Container(
               width: 120.0,
