@@ -11,7 +11,12 @@ class _HomeMaterialState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Register New Product')),
+        appBar: AppBar(
+          title: Text('Add Product',style: TextStyle(color: Colors.black)),
+          backgroundColor: Colors.white,
+          leading: Icon(Icons.close,color: Colors.black),
+
+          ),
         body: Container(
             padding:
             const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
@@ -109,7 +114,7 @@ class _HomeMaterialState extends State {
                                   child: Text('Save'))),
                            */
                             ])))
-            )
+             )
             ));
   }
   _showDialog(BuildContext context) {

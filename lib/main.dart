@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/adminhome.dart';
 import 'placeorder.dart';
 import 'customer.dart';
 import 'shopkeeper.dart';
 import 'login.dart';
+import 'adminhome.dart';
 void main(){ 
   runApp(new MyApp());
 }
@@ -19,7 +21,8 @@ class MyApp extends StatelessWidget {
       home: new HomePage(), 
       routes: <String, WidgetBuilder>{
         'Customer': (BuildContext context)=> Login(),
-        'Shopkeeper': (BuildContext context)=> ShopPage(),        
+        'Shopkeeper': (BuildContext context)=> ShopPage(),  
+        'Admin': (BuildContext context)=> Admin(),        
       },
     );
   }
@@ -29,7 +32,7 @@ class HomePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    var widgetList = ["Customer","Shopkeeper",];
+    var widgetList = ["Customer","Shopkeeper","Admin"];
 
     return Scaffold(
       appBar: AppBar(
