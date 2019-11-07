@@ -90,11 +90,25 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_keyboard_visibility:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_typeahead:
+    dependency: "direct main"
+    description:
+      name: flutter_typeahead
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.7.0"
   fluttertoast:
     dependency: "direct main"
     description:
@@ -115,7 +129,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.12+1"
+    version: "0.6.1+10"
   matcher:
     dependency: transitive
     description:
