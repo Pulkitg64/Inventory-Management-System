@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/adminhome.dart';
-import 'placeorder.dart';
-import 'customer.dart';
 import 'shopkeeper.dart';
 import 'login.dart';
 import 'adminhome.dart';

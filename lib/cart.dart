@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'placeorder.dart';
-import 'cart.dart';
 import 'cart_product.dart';
 
 class Cart extends StatefulWidget {

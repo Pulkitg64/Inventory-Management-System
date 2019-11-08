@@ -1,12 +1,8 @@
-// home_material.dart
 import 'dart:io';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'db/category.dart';
 import 'db/product.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,7 +14,6 @@ class HomeMaterial extends StatefulWidget {
 class _HomeMaterialState extends State {
   CategoryService _categoryService = CategoryService();
   ProductService _productService = ProductService();
-
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _productNameController = TextEditingController();
   TextEditingController _productPriceController = TextEditingController();
@@ -26,7 +21,7 @@ class _HomeMaterialState extends State {
   List<DocumentSnapshot> categories = <DocumentSnapshot>[];
   List<DropdownMenuItem<String>> categoriesDropDown= <DropdownMenuItem<String>>[];
   String _currentCategory = "test";
-  TextEditingController _productPrice = TextEditingController();
+
   File _image1;
   bool isLoading = false;
   
@@ -60,92 +55,90 @@ class _HomeMaterialState extends State {
       body: Container(
         padding:
           const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-            
-              child: Builder(
-                builder: (context) => Form(
-                  key: _formKey,
-                  child: SingleChildScrollView(
-                  child: isLoading ? CircularProgressIndicator: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
+          child: Builder(
+            builder: (context) => Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: isLoading ? CircularProgressIndicator(): Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: OutlineButton(
+                              borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 2.5),
+                              onPressed: (){
+                                _selectImage(ImagePicker.pickImage(source: ImageSource.gallery), 1);
+                              },
+                              child: _displayChild1()
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: OutlineButton(
-                        borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 2.5),
-                        onPressed: (){
-                          _selectImage(ImagePicker.pickImage(source: ImageSource.gallery), 1);
+                      child: TextFormField(
+                        controller: _productNameController,
+                        decoration:InputDecoration(labelText: 'Product Name'),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                             return 'Please enter product name';
+                          }
                         },
-                        child: _displayChild1()
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: _productNameController,
-                  decoration:InputDecoration(labelText: 'Product Name'),
-                  validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter product name';
-                  }
-                },
-                            // onSaved: (val) =>
-                             //   setState(() => _user.ProductName = val),
-               ),
-              ),
-              Row(
-               children: <Widget>[ 
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Category',style: TextStyle(color: Colors.red),
-                   ),
-                ),
-                Expanded(
-                  child:  DropdownButton(
-                    items: categoriesDropDown,
-                    value: _currentCategory,
-                    onChanged: changeSelectedCategory,
-                  ),
-                )
-                      
-              ],
-             ),
-                      
-             Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextFormField(
-                controller: _productPriceController,
-               // initialValue: '0.00',
-                keyboardType: TextInputType.numberWithOptions(),
-                decoration:InputDecoration(labelText: 'Product Price'),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter product price';
-                  }
-                },
-              ),
-             ),           
+                  
+                  
+                  Row(
+                    children: <Widget>[ 
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Category',style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                
+                      Expanded(
+                        child:  DropdownButton(
+                          items: categoriesDropDown,
+                          value: _currentCategory,
+                          onChanged: changeSelectedCategory,
+                        ),
+                      ),
 
-             Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextFormField(
-                controller: _productQuantityController,
-              //  initialValue: '1',
-                keyboardType: TextInputType.numberWithOptions(),
-                decoration:InputDecoration(labelText: 'Quantity'),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter product Quantity';
-                  }
-                },
-                          //   setState(() => _user.ProductName = val),
-              ),
-            ),           
+                    ],
+                  ),
+                      
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: TextFormField(
+                      controller: _productPriceController,
+                      keyboardType: TextInputType.numberWithOptions(),
+                      decoration:InputDecoration(labelText: 'Product Price'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter product price';
+                        }
+                      },
+                    ),
+                  ),           
+
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: TextFormField(
+                      controller: _productQuantityController,
+                      keyboardType: TextInputType.numberWithOptions(),
+                      decoration:InputDecoration(labelText: 'Quantity'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter product Quantity';
+                        }
+                      },
+                    ),
+                  ),           
                        
                   FlatButton(
                     color: Colors.red,
@@ -153,17 +146,16 @@ class _HomeMaterialState extends State {
                     child: Text('Add product'),
                     onPressed: (){
                       validateAndUpload();
-                                          },
-                                        )
-                                      ]
-                                    )
-                                  )
-                 )
-                                )
-                             
-                              )
-                            );
-                          }
+                    },
+                  )
+                ]
+              )
+            )
+          )
+        )                          
+      )
+    );
+  }
   void _selectImage(Future<File> pickImage, int imageNumber) async{
     File tempImg = await pickImage;
     switch(imageNumber){
@@ -200,25 +192,26 @@ class _HomeMaterialState extends State {
   }
                       
   void validateAndUpload() async{
-    if(_formKey.currentState.validate()){
-      setState(() =>
-        isLoading = true
-      );
-        if(_image1 != null){
-          String imageUrl1;
-          final FirebaseStorage storage = FirebaseStorage.instance;
-          final String picture1 = "${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
-          StorageUploadTask task1 =  storage.ref().child(picture1).putFile(_image1);
-          StorageTaskSnapshot snapshot1 = await task1.onComplete.then((snapshot)=>snapshot);
-          
-          task1.onComplete.then((snapshot1) async{
+ if(_formKey.currentState.validate()){
+   setState(() =>isLoading = true);
 
-            imageUrl1 = await snapshot1.ref.getDownloadURL();
-          _productService.uploadProduct(productName: _productNameController.text,
-                                        category: _currentCategory,
-                                        price: int.parse(_productPriceController.text),
-                                        quantity: int.parse(_productQuantityController.text), 
-                                        image: imageUrl1 );
+    if(_image1 != null){
+      String imageUrl1;
+      final FirebaseStorage storage = FirebaseStorage.instance;
+      final String picture1 = "${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
+      StorageUploadTask task1 =  storage.ref().child(picture1).putFile(_image1);
+      StorageTaskSnapshot snapshot1 = await task1.onComplete.then((snapshot)=>snapshot);
+         
+      task1.onComplete.then((snapshot1) async{
+
+        imageUrl1 = await snapshot1.ref.getDownloadURL();
+        _productService.uploadProduct(
+          productName: _productNameController.text,
+          category: _currentCategory,
+          price: int.parse(_productPriceController.text),
+          quantity: int.parse(_productQuantityController.text), 
+          image: imageUrl1 
+        );
           _formKey.currentState.reset();
       
           setState(() => isLoading = false);
@@ -229,8 +222,9 @@ class _HomeMaterialState extends State {
             
           });
         }
-        else{
-           setState(() =>isLoading = false);
+        else
+        {
+          setState(() =>isLoading = false);
           Fluttertoast.showToast(msg: 'at least one images must be provided');
         }
     }

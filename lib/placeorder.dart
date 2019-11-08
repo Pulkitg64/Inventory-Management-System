@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:hello_world/customer.dart';
-import 'main.dart';
+
 import 'horizontal_listview.dart';
 import 'products_grid_view.dart';
 import 'cart.dart';
