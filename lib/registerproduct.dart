@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'db/category.dart';
-
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+ 
 class HomeMaterial extends StatefulWidget {
   @override
   _HomeMaterialState createState() => _HomeMaterialState();
@@ -21,17 +22,18 @@ class _HomeMaterialState extends State {
   @override
   void initState(){
     _getCategories();
-    categoriesDropDown = getCategoriesDropdown();
+  
  //   _currentCategory= categoriesDropDown[0].value;
   }
     
+  
   List<DropdownMenuItem<String>> getCategoriesDropdown(){
     List<DropdownMenuItem<String>> items = new List();
-    for(DocumentSnapshot category in categories){
-    items.add(DropdownMenuItem(child: Text(category['category']),
-      value: category['category'],
-      )
-     );
+    for(int i = 0; i < categories.length; i++){
+      setState(() {
+        items.insert(0, DropdownMenuItem(child: Text(categories[i].data['category']),
+            value: categories[i]['category']));
+      });
     }
     return items;
   }
@@ -56,42 +58,68 @@ class _HomeMaterialState extends State {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      TextFormField(
-                        controller: _productNameController,
-                        decoration:InputDecoration(labelText: 'Product Name'),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter product name';
-                          }
-                        },
-                           // onSaved: (val) =>
-                           //   setState(() => _user.ProductName = val),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: categories.length,
-                          itemBuilder: (context,index){
-                            return ListTile(
-                              title: Text(categories[index]['category']),
-                            );
-                          }
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: _productNameController,
+                          decoration:InputDecoration(labelText: 'Product Name'),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter product name';
+                            }
+                          },
+                             // onSaved: (val) =>
+                             //   setState(() => _user.ProductName = val),
                         ),
                       ),
-                      Center(
-                        child: DropdownButton(
-                          items: categoriesDropDown,
-                          value: _currentCategory,
-                          onChanged: changeSelectedCategory,
+                      Row(
+                        children: <Widget>[ 
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Category',style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                          Expanded(
+                            child:  DropdownButton(
+                              items: categoriesDropDown,
+                              value: _currentCategory,
+                              onChanged: changeSelectedCategory,
+                            ),
+                          )
+                         
+                        ],
+  
+                      ),
+                      
+                     Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: TextFormField(
+                          controller: _productNameController,
+                          keyboardType: TextInputType.numberWithOptions(),
+                          decoration:InputDecoration(labelText: 'Product Price'),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter product name';
+                            }
+                          },
+                             //   setState(() => _user.ProductName = val),
                         ),
-                      ),
-                      TextFormField(
-                        decoration:InputDecoration(labelText: 'Product Price'),
-                        validator: (value) {
-                         if (value.isEmpty) {
-                          return 'Please enter product price.';
-                          }
-                        },
-                      ),
+                      ),           
+
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: TextFormField(
+                          controller: _productNameController,
+                          keyboardType: TextInputType.numberWithOptions(),
+                          decoration:InputDecoration(labelText: 'Quantity'),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter product name';
+                            }
+                          },
+                             //   setState(() => _user.ProductName = val),
+                        ),
+                      ),           
                       Container(
                         padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
                         child: Text('Upload Image'),
@@ -156,8 +184,14 @@ class _HomeMaterialState extends State {
                                                                               _showDialog(context);
                                                                             }
                                                                           },
-                                                                          child: Text('Save'))),
-                                                                   */
+                                                                          child: Text('Save'))),*/
+                                                        
+                   FlatButton(
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      child: Text('Add product'),
+                      onPressed: (){},
+                    )
                   ]
                 )
               )
@@ -177,6 +211,8 @@ class _HomeMaterialState extends State {
     print(data.length);
     setState((){
       categories = data;
+      categoriesDropDown = getCategoriesDropdown();
+      _currentCategory = categories[0].data['category'];
      });
    }
                                     
