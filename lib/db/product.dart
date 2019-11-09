@@ -16,6 +16,8 @@ import 'package:uuid/uuid.dart';
       'category': category,
       'quantity': quantity,
       'price': price,
+      'picture' :image
+      
 
     });
   

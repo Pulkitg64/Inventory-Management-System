@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:hello_world/categories.dart';
 import 'package:hello_world/customer.dart';
 
 import 'horizontal_listview.dart';
@@ -82,7 +83,9 @@ class _PlaceOrderState extends State<PlaceOrder> {
             ),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new Cart()));
+              },
               child: ListTile(
                 title: Text('My Orders'),
                 leading: Icon(Icons.shopping_basket),
@@ -90,7 +93,9 @@ class _PlaceOrderState extends State<PlaceOrder> {
             ),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new CategoryPage()));
+              },
               child: ListTile(
                 title: Text('Categories'),
                 leading: Icon(Icons.dashboard),

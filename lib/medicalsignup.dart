@@ -1,27 +1,13 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'customer.dart';
-import 'login.dart';
-import 'db/users.dart';
-import 'placeorder.dart';
-import 'main.dart';
 
-
-class signUp extends StatefulWidget {
+class MedicalSignup extends StatefulWidget {
   @override
-  _signUpState createState() => _signUpState();
+  _MedicalSignupState createState() => _MedicalSignupState();
 }
 
-class _signUpState extends State<signUp> {
+class _MedicalSignupState extends State<MedicalSignup> {
 
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-  UserServices _userServices = UserServices();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _nameTextController = TextEditingController();
@@ -29,63 +15,60 @@ class _signUpState extends State<signUp> {
   bool hidePass = true;
 
   bool loading= false;
-    @override
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   centerTitle: true,
-      //   title: Text("Login",style: TextStyle(color: Colors.red.shade900),),
-      //   elevation: 0.1,
-      // ),
+     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        title: Text("SignUp",style: TextStyle(color: Colors.black),),
+        elevation: 0.1,
+      ),
       body: Stack(
         children: <Widget>[
-      
-            Padding(
-              padding: const EdgeInsets.only(top: 0.0),
+          // Image.asset('images/login.jpg',
+          //   fit: BoxFit.cover,
+          //   width: double.infinity,
+          //   height: double.infinity,  
+          // ),
+          // Container(
+          //   color: Colors.black.withOpacity(0.2),
+          //   width: double.infinity,
+          //   height: double.infinity,  
+          // ),
+          Container(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 1.0),
               child: Center(
                 child: Form(
                   key: _formKey,
-                  child: SingleChildScrollView( 
-                    child:Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Container(
-                            alignment: Alignment.topCenter,
-                            child: Image.asset(
-                             'images/cart.png',
-                              width: 100.0,
-                            height: 100.0,
-                            )
-                          ),
-                        ),
+                  
+                  child:Column(
+                    children: <Widget>[
 
                       //=======================NAME========================
                       Padding(padding: const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                       child: Material(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.grey.withOpacity(0.2),
+                        color: Colors.white.withOpacity(0.8),
                         elevation: 0.0,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 12.0),
-                          child: ListTile(
-                              title: TextFormField(
-                              controller: _nameTextController,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Name",
-                                icon: Icon(Icons.person_outline),
-                              ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "The name field cannot be empty";
-                              } 
+                          child: TextFormField(
+                            controller: _nameTextController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Name",
+                              icon: Icon(Icons.person_outline),
+                            ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "The name field cannot be empty";
+                            } 
                          return null;
                          },
                         ),
-                          ),
                       ),
                     ),
                    ),
@@ -93,31 +76,29 @@ class _signUpState extends State<signUp> {
                      Padding(padding: const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                        child: Material(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.grey.withOpacity(0.2),
+                        color: Colors.white.withOpacity(0.8),
                         elevation: 0.0,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 12.0),
-                          child: ListTile(
-                              title: TextFormField(
-                              controller: _emailTextController,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Email",
-                                icon: Icon(Icons.email),
-                              ),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  Pattern pattern =
-                                   r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                                  RegExp regex = new RegExp(pattern);
-                                  if (!regex.hasMatch(value))
-                                    return 'Please make sure your email address is valid';
-                                  else
-                                    return null;
-                                 }
-                               },
-                             ),
-                          ),
+                          child: TextFormField(
+                            controller: _emailTextController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Email",
+                              icon: Icon(Icons.email),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                Pattern pattern =
+                                 r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                                RegExp regex = new RegExp(pattern);
+                                if (!regex.hasMatch(value))
+                                  return 'Please make sure your email address is valid';
+                                else
+                                  return null;
+                               }
+                             },
+                           ),
                           ),
                         ), 
                       ),
@@ -126,7 +107,7 @@ class _signUpState extends State<signUp> {
                     Padding(padding: const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                       child: Material(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.grey.withOpacity(0.2),
+                        color: Colors.white.withOpacity(0.8),
                         elevation: 0.0,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 12.0),
@@ -164,7 +145,7 @@ class _signUpState extends State<signUp> {
                     Padding(padding: const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                       child: Material(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.grey.withOpacity(0.2),
+                        color: Colors.white.withOpacity(0.8),
                         elevation: 0.0,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 12.0),
@@ -209,7 +190,7 @@ class _signUpState extends State<signUp> {
                       color: Colors.red,
                       elevation: 0.0,
                       child: MaterialButton( onPressed: ()async{
-                        validateForm();
+                      //  validateForm();
                       },                                                            
                       minWidth: MediaQuery.of(context).size.width,
                        child: Text("Register",textAlign: TextAlign.center,
@@ -221,7 +202,7 @@ class _signUpState extends State<signUp> {
                             
                      // ===============Login==========================
                     Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(8.0),
                     child: Container(
                       color: Colors.white.withOpacity(0.6),
                       child: 
@@ -230,66 +211,18 @@ class _signUpState extends State<signUp> {
                           onTap: (){
                            Navigator.pop(context);
                           },              
-                          child: Text("I have already an account",textAlign: TextAlign.center,style: TextStyle(color: Colors.red,fontWeight: FontWeight.w600,fontSize: 15.0)),
+                          child: Text("Login",textAlign: TextAlign.center,style: TextStyle(color: Colors.red,fontWeight: FontWeight.w600,fontSize: 15.0)),
                         )            
                       )                 
                     ),
-                  ),      
-                  Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Divider(),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Or Sign up with", style: TextStyle(fontSize: 20,color: Colors.grey),),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Divider(color: Colors.black),
-                        ),
-                      ],
-                    
-                    ),
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Padding(
-
-                        padding: const EdgeInsets.fromLTRB(2.0, 0.0, 0.0, 8.0),
-                        child: Material(
-                          child: MaterialButton(
-                            onPressed: () {},
-                            child: Image.asset("images/fb.png", width: 60,)
-                          )
-                        ),
-                      ),
-
-                      Padding(
-                        padding:
-                        const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 8.0),
-                        child: Material(
-                          child: MaterialButton(
-                            onPressed: () {},
-                            child: Image.asset("images/ggg.png", width: 60,)
-                          )
-                        ),
-                      ),
-                    ],
-                  ),                                      
+                  ),                                            
                 ],
               ),
-            ),
+            
             ),
           ),
         ),
-      
+      ),
         Visibility(
           visible: loading ?? true,
           child: Center(
@@ -306,38 +239,4 @@ class _signUpState extends State<signUp> {
      ),
     );
   }
-                        
-  
-  Future validateForm() async {
-    FormState formState = _formKey.currentState;
-
-    if (formState.validate()) {
-      formState.reset();
-      FirebaseUser user = await firebaseAuth.currentUser();
-      if (user == null) {
-        firebaseAuth
-            .createUserWithEmailAndPassword(
-                email: _emailTextController.text,
-                password: _passwordTextController.text,)
-            .then((user)=> {
-            _userServices.createUser(
-            {
-            "username": _nameTextController.text,
-            "email": _emailTextController.text,
-           // "password": _passwordTextController
-          //  "userId": user.uid,
-            }
-            )
-           }).catchError((err) => {print(err.toString())});
-   Navigator.pushReplacement(
-    context, MaterialPageRoute(builder: (context) => CustPage()));
-
-      }
-    }
-  }
-
-} 
-
-  
-
-
+}

@@ -11,10 +11,12 @@ class HorizontalList extends StatelessWidget {
           Category(
             ImageLocation: 'images/m1.png',
             ImageCaption: 'Groceries ',
+            
           ),
           Category(
             ImageLocation: 'images/m2.png',
             ImageCaption: 'Household Needs',
+            
           ),
           Category(
             ImageLocation: 'images/m3.png',

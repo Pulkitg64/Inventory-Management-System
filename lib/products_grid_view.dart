@@ -87,10 +87,8 @@ class Single_prod extends StatelessWidget {
             ),
             child: GridTile(
               footer: Container(
-                
                 color: Colors.white70,
                 child: ListTile(
-                  
                   leading: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold)),
                   title: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),
                   ),

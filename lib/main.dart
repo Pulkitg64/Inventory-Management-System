@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/adminhome.dart';
+import 'package:hello_world/medicallogin.dart';
 import 'shopkeeper.dart';
 import 'login.dart';
 import 'adminhome.dart';
+import 'placeorder.dart';
+
 void main(){ 
   runApp(new MyApp());
 }
@@ -20,7 +23,9 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         'Customer': (BuildContext context)=> Login(),
         'Shopkeeper': (BuildContext context)=> ShopPage(),  
-        'Admin': (BuildContext context)=> Admin(),        
+        'Admin': (BuildContext context)=> Admin(),
+        'Medical': (BuildContext context)=> MedicalLogin(),
+        'Place Order': (BuildContext context)=> PlaceOrder(),       
       },
     );
   }
@@ -30,7 +35,7 @@ class HomePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    var widgetList = ["Customer","Shopkeeper","Admin"];
+    var widgetList = ["Customer","Shopkeeper","Admin","Medical","Place Order"];
 
     return Scaffold(
       appBar: AppBar(
