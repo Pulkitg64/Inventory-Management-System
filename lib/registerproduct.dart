@@ -205,6 +205,7 @@ class _HomeMaterialState extends State {
       task1.onComplete.then((snapshot1) async{
 
         imageUrl1 = await snapshot1.ref.getDownloadURL();
+        
         _productService.uploadProduct(
           productName: _productNameController.text,
           category: _currentCategory,
