@@ -1,14 +1,5 @@
-import 'signup.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'main.dart';
 import 'cart.dart';
-
-
 
 class CategoryPage extends StatefulWidget {
   @override
@@ -72,7 +63,7 @@ class _CategoryPageState extends State<CategoryPage> {
                           title: FlatButton.icon(
                               onPressed: null,
                               icon: Icon(Icons.track_changes),
-                              label: Text("Producs")),
+                              label: Text("Products")),
                           subtitle: Text(
                             '120',
                             textAlign: TextAlign.center,

@@ -31,7 +31,9 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
         ],
       ),
       body: ListView(
+        
         children: <Widget>[
+          
           Container(
             height: 300.0,
             child: GridTile(

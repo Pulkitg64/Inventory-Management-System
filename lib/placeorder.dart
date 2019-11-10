@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:hello_world/categories.dart';
-import 'package:hello_world/customer.dart';
-
+import 'customer.dart';
+import 'product_categories.dart';
+import 'package:provider/provider.dart';
 import 'horizontal_listview.dart';
 import 'products_grid_view.dart';
 import 'cart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'login.dart';
+import 'provider/user_provider.dart';
 class PlaceOrder extends StatefulWidget {
   @override
   _PlaceOrderState createState() => _PlaceOrderState();
 }
 
 class _PlaceOrderState extends State<PlaceOrder> {
+  TextEditingController _searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
   Widget image_carousel = new Container(
     height: 200.0,
     child: Carousel(
@@ -37,7 +40,26 @@ class _PlaceOrderState extends State<PlaceOrder> {
   ); 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Place Order'),
+
+        title:  Material(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.black.withOpacity(0.2),
+          elevation: 0.0,
+          child:  TextFormField(
+            controller: _searchTextController,                    
+            decoration: InputDecoration(
+              hintText: "  Search...",
+        
+              border: InputBorder.none,
+            ),
+            validator: (value) {
+              if (value.isEmpty) {
+                 return "The search field cannot be empty";
+              }                   
+              return null;
+            },
+          ),    
+        ),
         actions: <Widget>[
           new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
           new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),
@@ -66,7 +88,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
 
             InkWell(
               onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new CustPage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CustPage()));
               },
               child: ListTile(
                 title: Text('Home Page'),
@@ -94,7 +116,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
 
             InkWell(
               onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new CategoryPage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new ProductCategories()));
               },
               child: ListTile(
                 title: Text('Categories'),
@@ -114,9 +136,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
 
             InkWell(
               onTap: (){
-                FirebaseAuth.instance.signOut().then((value){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
-                });
+                user.signOut();
               },
               child: ListTile(
                 title: Text('Log out'),

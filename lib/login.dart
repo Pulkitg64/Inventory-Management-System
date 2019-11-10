@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+
 import 'signup.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'main.dart';
+import 'loading.dart';
+import 'provider/user_provider.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,80 +17,51 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
+  final _key = GlobalKey<ScaffoldState>();
+  bool hidePass = true;
 
-  SharedPreferences preferences;
-  bool loading = false;
-  bool isLogedin = false;
-
-  @override
-  void initState() {
-    super.initState();
-    isSignedIn();
-  }
-
-  void isSignedIn() async {
-    setState(() {
-      loading = true;
-    });
-
-    await firebaseAuth.currentUser().then((user) {
-      if (user != null) {
-        setState(() => isLogedin = true);
-      }
-    });
-    if (isLogedin) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
-    }
-
-    setState(() {
-      loading = false;
-    });
-  }
-
-//  Future handleSignIn() async {
-//    setState(() {
-//      loading = true;
-//    });
-//  }
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height / 3;
+    final user = Provider.of<UserProvider>(context);
     return Scaffold(
-      body: SingleChildScrollView( 
-       child: Column(
-         
-        mainAxisAlignment: MainAxisAlignment.center,
+      key: _key,
+      body:user.status == Status.Authenticating ? Loading() : Stack(
         children: <Widget>[
           Container(
-            height: 40.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(28.0),
-            child: Container(
-              alignment: Alignment.topCenter,
-              child: Image.asset(
-                'images/cart.png',
-                 width: 120.0,
-//              height: 240.0,
-              )
-            ),
-          ),
-          Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 0.0),
-              child: Center(
+              padding: const EdgeInsets.all(0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[350],
+                      blurRadius:
+                      20.0, // has the effect of softening the shadow
+                    )
+                  ],
+                ),
                 child: Form(
                     key: _formKey,
-                    child: SingleChildScrollView(
-                      child: Column(
+                    child: ListView(
                       children: <Widget>[
+                        SizedBox(height: 40,),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                              alignment: Alignment.topCenter,
+                              //child: SvgPicture.asset(
+                            //    'images/login.svg',
+                              //  width: 260.0,
+                             // )
+                              ),
+                        ),
+
                         Padding(
                           padding:
                               const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
@@ -97,7 +72,7 @@ class _LoginState extends State<Login> {
                             child: Padding(
                               padding: const EdgeInsets.only(left: 12.0),
                               child: TextFormField(
-                                controller: _emailTextController,
+                                controller: _email,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "Email",
@@ -127,21 +102,27 @@ class _LoginState extends State<Login> {
                             elevation: 0.0,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 12.0),
-                              child: TextFormField(
-                                controller: _passwordTextController,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Password",
-                                  icon: Icon(Icons.lock_outline),
+                              child: ListTile(
+                                 title: TextFormField(
+                                  controller: _password,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Password",
+                                    icon: Icon(Icons.lock_outline),
+                                  ),
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return "The password field cannot be empty";
+                                    } else if (value.length < 6) {
+                                      return "the password has to be at least 6 characters long";
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return "The password field cannot be empty";
-                                  } else if (value.length < 6) {
-                                    return "the password has to be at least 6 characters long";
-                                  }
-                                  return null;
-                                },
+                                trailing: IconButton(icon: Icon(Icons.remove_red_eye),onPressed: (){
+                                  setState(() {hidePass= !hidePass; });
+                                  },
+                                )
                               ),
                             ),
                           ),
@@ -151,10 +132,15 @@ class _LoginState extends State<Login> {
                               const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                           child: Material(
                               borderRadius: BorderRadius.circular(20.0),
-                              color: Colors.deepOrange,
+                              color: Colors.black,
                               elevation: 0.0,
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () async{
+                                  if(_formKey.currentState.validate()){
+                                    if(!await user.signIn(_email.text, _password.text))
+                                      _key.currentState.showSnackBar(SnackBar(content: Text("Sign in failed")));
+                                  }
+                                },
                                 minWidth: MediaQuery.of(context).size.width,
                                 child: Text(
                                   "Login",
@@ -187,7 +173,7 @@ class _LoginState extends State<Login> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => signUp()));
+                                              builder: (context) => SignUp()));
                                     },
                                     child: Text(
                                       "Create an account",
@@ -202,72 +188,32 @@ class _LoginState extends State<Login> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
+
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Divider(),
+                                child: Text("or sign in with", style: TextStyle(fontSize: 18,color: Colors.grey),),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text("Or", style: TextStyle(fontSize: 20,color: Colors.grey),),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Divider(
-                                  color: Colors.black,
+                                child: MaterialButton(
+                                    onPressed: () {},
+                                    child: Image.asset("images/ggg.png", width: 30,)
                                 ),
                               ),
+
                             ],
                           ),
                         ),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                              const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
-                              child: Material(
-                                  child: MaterialButton(
-                                      onPressed: () {},
-                                      child: Image.asset("images/fb.png", width: 60,)
-                                  )),
-                            ),
-
-                            Padding(
-                              padding:
-                              const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
-                              child: Material(
-                                  child: MaterialButton(
-                                    onPressed: () {},
-                                    child: Image.asset("images/ggg.png", width: 60,)
-                                  )),
-                            ),
-                          ],
-                        ),
-
                       ],
-                    ),
-                    )
-                    ),
+                    )),
 
               ),
             ),
           ),
-          Visibility(
-            visible: loading ?? true,
-            child: Center(
-              child: Container(
-                alignment: Alignment.center,
-                color: Colors.white.withOpacity(0.9),
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-                ),
-              ),
-            ),
-          )
         ],
-      ),
       ),
     );
   }
+
 }

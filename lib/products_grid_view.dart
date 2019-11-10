@@ -73,34 +73,33 @@ class Single_prod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Hero(
-        tag:product_name,
-        child: Material(
-          child: InkWell(
-            onTap: ()=> Navigator.of(context).push(
-              MaterialPageRoute(builder: (context)=> new ProductViewDetail(
-                //passing the values of product grid view to product view details
-                product_detail_name: product_name,
-                product_detail_price: product_price,
-                product_detail_picture: product_pictures,
-              ))
-            ),
-            child: GridTile(
-              footer: Container(
-                color: Colors.white70,
-                child: ListTile(
-                  leading: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold)),
-                  title: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),
-                  ),
-                  )
-              ), child: Image.asset(
-                product_pictures,
-                fit:BoxFit.cover,
-                ),
+      child: Material(
+        child: InkWell(
+          onTap: ()=> Navigator.of(context).push(
+          MaterialPageRoute(builder: (context)=> new ProductViewDetail(
+           //passing the values of product grid view to product view details
+            product_detail_name: product_name,
+            product_detail_price: product_price,
+            product_detail_picture: product_pictures,
             )
-           )
-        ), 
+          )
+          ),
+          child: GridTile(          
+            footer: Container(
+              color: Colors.white,     
+              child: ListTile(
+                title: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold)),
+                trailing: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),),
+              )
+            ), 
+            child: Image.asset(
+              product_pictures,
+              fit:BoxFit.cover,
+              ),
+          ),
         ),
+      ), 
+        
     );
   }
 }
