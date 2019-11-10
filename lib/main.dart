@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         'Customer': (BuildContext context)=> Login(),
         'Shopkeeper': (BuildContext context)=> ShopPage(),  
         'Admin': (BuildContext context)=> Admin(),
-        'Medical': (BuildContext context)=> MedicalLogin(),
+        
         'Place Order': (BuildContext context)=> PlaceOrder(),       
       },
     );
