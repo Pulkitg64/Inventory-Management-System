@@ -24,8 +24,13 @@ class MyApp extends StatelessWidget {
         'Customer': (BuildContext context)=> Login(),
         'Shopkeeper': (BuildContext context)=> ShopPage(),  
         'Admin': (BuildContext context)=> Admin(),
-        
-        'Place Order': (BuildContext context)=> PlaceOrder(),       
+        'Place Order': (BuildContext context)=> PlaceOrder(),
+        'Frozen Foods': (BuildContext context)=> PlaceOrder(),
+        'Snacks': (BuildContext context)=> PlaceOrder(),
+        'Groceries & Staples': (BuildContext context)=> PlaceOrder(),
+        'Personal Needs': (BuildContext context)=> PlaceOrder(),
+        'Dairy Products': (BuildContext context)=> PlaceOrder(),
+        'Household Needs': (BuildContext context)=> PlaceOrder(),
       },
     );
   }
