@@ -5,6 +5,12 @@ import 'shopkeeper.dart';
 import 'login.dart';
 import 'adminhome.dart';
 import 'placeorder.dart';
+import 'frozen_food.dart';
+import 'snacks.dart';
+import 'groceries.dart';
+import 'personal_needs.dart';
+import 'household_needs.dart';
+import 'dairy_products.dart';
 
 void main(){ 
   runApp(new MyApp());
@@ -25,12 +31,12 @@ class MyApp extends StatelessWidget {
         'Shopkeeper': (BuildContext context)=> ShopPage(),  
         'Admin': (BuildContext context)=> Admin(),
         'Place Order': (BuildContext context)=> PlaceOrder(),
-        'Frozen Foods': (BuildContext context)=> PlaceOrder(),
-        'Snacks': (BuildContext context)=> PlaceOrder(),
-        'Groceries & Staples': (BuildContext context)=> PlaceOrder(),
-        'Personal Needs': (BuildContext context)=> PlaceOrder(),
-        'Dairy Products': (BuildContext context)=> PlaceOrder(),
-        'Household Needs': (BuildContext context)=> PlaceOrder(),
+        'Frozen Foods': (BuildContext context)=> FrozenFoods(),
+        'Snacks': (BuildContext context)=> Snacks(),
+        'Groceries & Staples': (BuildContext context)=> Groceries(),
+        'Personal Needs': (BuildContext context)=> PersonalNeeds(),
+        'Dairy Products': (BuildContext context)=> DairyProducts(),
+        'Household Needs': (BuildContext context)=> HouseholdNeeds(),
       },
     );
   }
