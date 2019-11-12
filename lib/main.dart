@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/adminhome.dart';
+import 'package:hello_world/medicalhome.dart';
 import 'package:hello_world/medicallogin.dart';
 import 'shopkeeper.dart';
 import 'login.dart';
 import 'adminhome.dart';
 import 'placeorder.dart';
+import 'medicalhome.dart';
+import 'frozen_food.dart';
+import 'snacks.dart';
+import 'groceries.dart';
+import 'personal_needs.dart';
+import 'household_needs.dart';
+import 'dairy_products.dart';
 
 void main(){ 
   runApp(new MyApp());
@@ -25,7 +33,9 @@ class MyApp extends StatelessWidget {
         'Shopkeeper': (BuildContext context)=> ShopPage(),  
         'Admin': (BuildContext context)=> Admin(),
         'Place Order': (BuildContext context)=> PlaceOrder(),
+        'Medical': (BuildContext context)=> MedicalLogin(),
         'Login': (BuildContext context)=> Login(),
+        'Medical Home': (BuildContext context)=> MedicalHome(),
 
       },
     );
@@ -36,7 +46,7 @@ class HomePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    var widgetList = ["Customer","Shopkeeper","Admin","Medical","Place Order","Login"];
+    var widgetList = ["Medical","Medical Home"];
 
     return Scaffold(
       appBar: AppBar(
