@@ -69,6 +69,8 @@ class Single_cart_product extends StatelessWidget {
             Container(
               width: 120.0,
             ),
+
+            
           ],  
         ),
         trailing:FittedBox(

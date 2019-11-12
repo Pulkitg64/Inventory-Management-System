@@ -34,9 +34,10 @@ class MyApp extends StatelessWidget {
         'Shopkeeper': (BuildContext context)=> ShopPage(),  
         'Admin': (BuildContext context)=> Admin(),
         'Place Order': (BuildContext context)=> PlaceOrder(),
-        'Medical': (BuildContext context)=> MedicalLogin(),
+        'Household Needs': (BuildContext context)=> HouseholdNeeds(),
+        //'Medical': (BuildContext context)=> MedicalLogin(),
         //'Login': (BuildContext context)=> Login(),
-        'Medical Home': (BuildContext context)=> MedicalHome(),
+//        'Medical Home': (BuildContext context)=> MedicalHome(),
 
       },
     );
@@ -47,7 +48,7 @@ class HomePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    var widgetList = ["Customer","Shopkeeper","Admin","Place Order",];
+    var widgetList = ["Customer","Shopkeeper","Admin","Place Order","Household Needs"];
 
     return Scaffold(
       appBar: AppBar(

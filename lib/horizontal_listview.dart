@@ -67,7 +67,9 @@ class Category extends StatelessWidget {
           subtitle: Container(
            
             child: Text(ImageCaption, textAlign: TextAlign.center,),
+            
             ),
+            
           )
         ),
       ),

@@ -1,49 +1,81 @@
 import 'package:flutter/material.dart';
-import 'products_grid_view.dart';
+import 'package:hello_world/db/product.dart';
 import 'cart.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 class HouseholdNeeds extends StatefulWidget {
   @override
   _HouseholdNeedsState createState() => _HouseholdNeedsState();
 }
 
 class _HouseholdNeedsState extends State<HouseholdNeeds> {
+  
+  bool reviewFlag = false;
+  var products;
+  @override
+  void initState(){
+
+    super.initState();
+
+    ProductService().getproduct('Household Needs')
+    .then((QuerySnapshot docs){
+      if(docs.documents.isNotEmpty){
+
+        reviewFlag = true;
+        products = docs.documents[0].data;
+      }
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text('Household Needs'),
+        backgroundColor: Colors.orange,
+        
+        title: Text('Your Cart',),
+        centerTitle: true,
         actions: <Widget>[
           new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
-          new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),
-            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Cart()));},)
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          //image carousel begins
+      body: Card(
+      child: ListTile(
+        // =================LEADING PICTURE===========
+   // leading: Image.asset(products['picture'],width: 80.0,height: 80.0),
+        //===================TITLE=================
+        title: Text(products['name']),
+        //===================SUBTITLE===============
+        subtitle: Row(
+          children: <Widget>[
+            
+            Container(
+              alignment: Alignment.bottomLeft,
+            child: Text("\₹$products['price']",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold,color: Colors.red),)
+            ), 
+            Container(
+              width: 120.0,
+            ),
 
-          Divider(),
-          //Padding Widget
+            
+          ],  
+        ),
+        trailing:FittedBox(
+          fit: BoxFit.fill,
+          child:
+          Column(
+            children: <Widget>[
+             
+              Text(products['quantity'],style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
+             
 
-
-          Container(
-            height: 20.0,
-            child: Text('All Household Needs products',),
-            alignment: Alignment.centerLeft,
+            ],
           ),
-          // //Padding Widget
-          // Padding(padding: const EdgeInsets.all(35.0),
-          // child: Text('Recent Products', textAlign: TextAlign.left,textDirection: TextDirection.ltr,),),
-
-          //grid View
-
-          Flexible(
-
-            child: ProductsGridView(),
-          )
-
-        ],
+        ),
+            
       ),
+      )  
     );
   }
 }

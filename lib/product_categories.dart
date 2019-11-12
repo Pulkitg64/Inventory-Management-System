@@ -22,7 +22,7 @@ class _ProductCategoryList extends State<ProductCategories>{
       appBar: AppBar(
         title: Text("Product Categories"),
       ),
-      body: ListView.builder(
+        body: ListView.builder(
           itemCount: categoryList.length,
           shrinkWrap: true,
           itemBuilder: (builder, index){
@@ -30,7 +30,7 @@ class _ProductCategoryList extends State<ProductCategories>{
               padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
               child: InkWell(
                 onTap: (){
-                  //Navigator.of(context).pushNamed('${widgetList[index]}');
+                  Navigator.of(context).pushNamed('${categoryList[index]}');
                 },
                 child: Card(
                   elevation: 5.0,
@@ -51,4 +51,4 @@ class _ProductCategoryList extends State<ProductCategories>{
           }),
     );
   }
-} 
+}

@@ -22,4 +22,15 @@ import 'package:uuid/uuid.dart';
     });
   
    }
+
+   getproduct(String cate){
+
+     return _firestore.collection('products')
+     .where('category',isEqualTo: cate)
+     .getDocuments();
+
+   }
+
+
+   
  }

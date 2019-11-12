@@ -28,8 +28,6 @@ class _HomeMaterialState extends State {
   @override
   void initState(){
     _getCategories();
-  
- //   _currentCategory= categoriesDropDown[0].value;
   }
     
   
