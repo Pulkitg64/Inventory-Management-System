@@ -19,25 +19,26 @@ class UserProvider with ChangeNotifier{
       }
     
 
-   Future<bool> signIn(String email,String password)async{
+  Future<bool> signIn(String email,String password)async{
 
-     try{
+    try{
       _status = Status.Authenticating;
       notifyListeners();
       await _auth.signInWithEmailAndPassword(email: email,password: password);
-     }catch(e){
-
+      return true;
+    }
+    catch(e){
        _status= Status.Unauthenticated;
        notifyListeners();
        print(e.toString());
        return false;
 
-     }
-   }
+    }
+  }
 
-   Future<bool> signUp(String name, String email,String password)async{
+  Future<bool> signUp(String name, String email,String password)async{
 
-     try{
+    try{
       _status = Status.Authenticating;
       notifyListeners();
       await _auth.createUserWithEmailAndPassword(email: email,password: password).then((user){
@@ -47,8 +48,10 @@ class UserProvider with ChangeNotifier{
           //"userId":user.uid,
         };
         _userServices.createUser(values);
-      });;
-     }catch(e){
+      });
+      return true;
+     }
+     catch(e){
 
        _status= Status.Unauthenticated;
        notifyListeners();
@@ -68,16 +71,18 @@ class UserProvider with ChangeNotifier{
 
 
 
-    Future<void> _onStatesChanged(FirebaseUser user) async{
-      if(user==null)
-      {
-        _status= Status.Unauthenticated; 
-      }
-      else{
-        _status= Status.Authenticated;
-      }
+  Future<void> _onStatesChanged(FirebaseUser user) async{
+    if(user==null)
+    {
+      _status= Status.Unauthenticated; 
+    }
+    else
+    {
+      _user = user;
+      _status= Status.Authenticated;
+    }
 
-      notifyListeners();
+    notifyListeners();
   } 
 
  

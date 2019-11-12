@@ -7,7 +7,7 @@ import 'horizontal_listview.dart';
 import 'products_grid_view.dart';
 import 'cart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'login.dart';
+//import 'login.dart';
 import 'provider/user_provider.dart';
 class PlaceOrder extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
   TextEditingController _searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context);
+   // final user = Provider.of<UserProvider>(context);
   Widget image_carousel = new Container(
     height: 200.0,
     child: Carousel(
@@ -136,7 +136,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
 
             InkWell(
               onTap: (){
-                user.signOut();
+                //user.signOut();
               },
               child: ListTile(
                 title: Text('Log out'),
