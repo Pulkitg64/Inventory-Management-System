@@ -1,29 +1,23 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'categorydetail.dart';
-import 'package:hello_world/horizontal_listview.dart';
-import 'package:hello_world/main.dart';
-import 'db/category.dart';
-import 'db/product.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'product_view_details.dart';
+class NextPage extends StatefulWidget {
+  final String value;
 
-class ProductCategories extends StatefulWidget {
+  NextPage({Key key,this.value}): super(key:key);
   @override
-  _ProductCategoriesState createState() => _ProductCategoriesState();
+  _NextPageState createState() => _NextPageState();
 }
 
-class _ProductCategoriesState extends State<ProductCategories> {
- 
+class _NextPageState extends State<NextPage> {
+
  
  Future _data;
  Future getCat() async{
 
   var firestore = Firestore.instance;
 
-  QuerySnapshot qn = await firestore.collection('categories').getDocuments();
+  QuerySnapshot qn = await firestore.collection('products').where('category', isEqualTo: "${widget.value}").getDocuments();
    return qn.documents;
  }
 
@@ -37,7 +31,7 @@ class _ProductCategoriesState extends State<ProductCategories> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categories List',style: TextStyle(color: Colors.black)),
+        title: Text("${widget.value}",style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
         leading: Icon(Icons.close,color: Colors.black)
         //  onPressed: Navigator.pop(),
@@ -59,13 +53,15 @@ class _ProductCategoriesState extends State<ProductCategories> {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
                 child: InkWell(
-                  onTap: (){
-                    var route = MaterialPageRoute(
-                      builder: (BuildContext context) => NextPage(value: snapshot.data[index].data['category']),
-                    );
-                    Navigator.of(context).push(route);
-               //   Naator.push(context, new MaterialPageRoute(builder: (context) => ProductCategories(categ:  ProductCategories(snapshot.data[index].data['category']))));
-                  },
+                  onTap: ()=> Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context)=> new ProductViewDetail(
+           //passin the values of product grid view to product view details
+                      product_detail_name: snapshot.data[index].data['name'],
+                      product_detail_price: snapshot.data[index].data['price'],
+                      product_detail_picture: snapshot.data[index].data['picture'],
+                    )
+                  )
+                  ),
                   child: Card(
                   elevation: 5.0,
                   child: new Container(
@@ -74,7 +70,7 @@ class _ProductCategoriesState extends State<ProductCategories> {
                       padding: EdgeInsets.all(16.0),
                       child: Row(
                         children: <Widget>[
-                          Text(snapshot.data[index].data['category'], style: TextStyle(color: Colors.black, fontSize: 20.0),),
+                          Text(snapshot.data[index].data['name'], style: TextStyle(color: Colors.black, fontSize: 20.0),),
                           Icon(Icons.keyboard_arrow_right)
                         ],
                       )
