@@ -1,38 +1,67 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hello_world/main.dart';
 import 'db/category.dart';
 import 'db/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-
-
 class ProductCategories extends StatefulWidget {
   @override
-  _ProductCategoryList createState() => _ProductCategoryList();
+  _ProductCategoriesState createState() => _ProductCategoriesState();
 }
 
-class _ProductCategoryList extends State<ProductCategories>{
+class _ProductCategoriesState extends State<ProductCategories> {
+ 
+ Future _data;
+ Future getCat() async{
+
+  var firestore = Firestore.instance;
+
+  QuerySnapshot qn = await firestore.collection('categories').getDocuments();
+   return qn.documents;
+ }
+
+  @override
+  void initState(){
+    super.initState();
+
+    _data = getCat();
+  }
   @override
   Widget build(BuildContext context) {
-    var categoryList = ["Frozen Foods", "Snacks", "Groceries & Staples", "Personal Needs", "Dairy Products", "Household Needs"];
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("Product Categories"),
+        title: Text('Categories List',style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        leading: IconButton(icon: Icon(Icons.close,color: Colors.black),
+        //  onPressed: Navigator.pop(),
+        )
       ),
-        body: ListView.builder(
-          itemCount: categoryList.length,
-          shrinkWrap: true,
-          itemBuilder: (builder, index){
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
-              child: InkWell(
-                onTap: (){
-                  Navigator.of(context).pushNamed('${categoryList[index]}');
-                },
-                child: Card(
+
+      body: FutureBuilder(
+        future: _data,
+        builder: (_,snapshot){
+          if(snapshot.connectionState==ConnectionState.waiting){
+            return Center(
+              child: Text("Loading....."),
+            );
+          }
+          else
+          {
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              shrinkWrap: true,
+              itemBuilder: (_, index){
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
+                child: InkWell(
+                  onTap: (){
+                  //Navigator.of(context).pushNamed('${widgetList[index]}');
+                  },
+                  child: Card(
                   elevation: 5.0,
                   child: new Container(
                       color: Colors.white,
@@ -40,7 +69,7 @@ class _ProductCategoryList extends State<ProductCategories>{
                       padding: EdgeInsets.all(16.0),
                       child: Row(
                         children: <Widget>[
-                          Text(categoryList[index], style: TextStyle(color: Colors.black, fontSize: 20.0),),
+                          Text(snapshot.data[index].data['category'], style: TextStyle(color: Colors.black, fontSize: 20.0),),
                           Icon(Icons.keyboard_arrow_right)
                         ],
                       )
@@ -48,7 +77,13 @@ class _ProductCategoryList extends State<ProductCategories>{
                 ),
               ),
             );
-          }),
+          });
+          }
+        }
+      )
+
+    
     );
-  }
+  }  
+
 }

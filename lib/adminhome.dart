@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hello_world/productlist.dart';
 import 'db/category.dart';
 import 'registerproduct.dart';
-
+import 'product_categories.dart';
 
 enum Page { dashboard, manage }
 
@@ -108,15 +109,20 @@ class _AdminState extends State<Admin> {
                     padding: const EdgeInsets.all(9.0),
                     child: Card(
                       child: ListTile(
-                          title: FlatButton.icon(
-                              onPressed: null,
-                              icon: Icon(Icons.category),
-                              label: Text("Categories")),
-                          subtitle: Text(
-                            '23',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: active, fontSize: 60.0),
-                          )),
+                        title: FlatButton.icon(
+                          onPressed: null,
+                          icon: Icon(Icons.category),
+                          label: Text("Categories")),
+                        subtitle: Text(
+                          '23',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: active, fontSize: 60.0),
+                            
+                        ),
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductCategories()));
+                        }        
+                      ),
                     ),
                   ),
                   Padding(
@@ -126,12 +132,16 @@ class _AdminState extends State<Admin> {
                           title: FlatButton.icon(
                               onPressed: null,
                               icon: Icon(Icons.track_changes),
-                              label: Text("Producs")),
+                              label: Text("Products")),
                           subtitle: Text(
                             '120',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: active, fontSize: 60.0),
-                          )),
+                          ),
+                          onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductList()));
+                        }    
+                        ),
                     ),
                   ),
                   Padding(
@@ -141,7 +151,7 @@ class _AdminState extends State<Admin> {
                           title: FlatButton.icon(
                               onPressed: null,
                               icon: Icon(Icons.tag_faces),
-                              label: Text("Sold")),
+                              label: Text("Sold")), 
                           subtitle: Text(
                             '13',
                             textAlign: TextAlign.center,
@@ -199,7 +209,9 @@ class _AdminState extends State<Admin> {
             ListTile(
               leading: Icon(Icons.change_history),
               title: Text("Products list"),
-              onTap: () {},
+               onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductList()));
+              }    
             ),
             Divider(),
             ListTile(
@@ -213,8 +225,9 @@ class _AdminState extends State<Admin> {
             ListTile(
               leading: Icon(Icons.category),
               title: Text("Category list"),
-              onTap: () {},
-            ),
+              onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductCategories()));
+              }),
             Divider(),
           ],
         );

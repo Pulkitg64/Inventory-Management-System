@@ -41,41 +41,35 @@ class _HouseholdNeedsState extends State<HouseholdNeeds> {
         ],
       ),
       body: Card(
-      child: ListTile(
+    
+        child: ListTile(
         // =================LEADING PICTURE===========
-   // leading: Image.asset(products['picture'],width: 80.0,height: 80.0),
+   
+        leading: Image.asset(products['picture'],width: 80.0,height: 80.0),
         //===================TITLE=================
         title: Text(products['name']),
         //===================SUBTITLE===============
         subtitle: Row(
           children: <Widget>[
-            
             Container(
               alignment: Alignment.bottomLeft,
-            child: Text("\₹$products['price']",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold,color: Colors.red),)
+              child: Text("\₹$products['price']",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold,color: Colors.red),)
             ), 
             Container(
               width: 120.0,
             ),
-
-            
           ],  
         ),
         trailing:FittedBox(
           fit: BoxFit.fill,
-          child:
-          Column(
+          child:Column(
             children: <Widget>[
-             
               Text(products['quantity'],style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
-             
-
             ],
           ),
-        ),
-            
+        )  
       ),
-      )  
+    )
     );
   }
 }
