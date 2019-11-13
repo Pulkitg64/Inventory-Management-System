@@ -59,6 +59,7 @@ class _NextPageState extends State<NextPage> {
                       product_detail_name: snapshot.data[index].data['name'],
                       product_detail_price: snapshot.data[index].data['price'],
                       product_detail_picture: snapshot.data[index].data['picture'],
+                      product_detail_quantity: snapshot.data[index].data['quantity'],
                     )
                   )
                   ),
@@ -81,9 +82,7 @@ class _NextPageState extends State<NextPage> {
           });
           }
         }
-      )
-
-    
+      )    
     );
   }  
 

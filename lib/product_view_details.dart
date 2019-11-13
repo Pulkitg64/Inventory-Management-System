@@ -6,11 +6,13 @@ class ProductViewDetail extends StatefulWidget {
   final product_detail_name;
   final product_detail_price;
   final product_detail_picture;
+  final product_detail_quantity;
 
   ProductViewDetail({
     this.product_detail_name,
     this.product_detail_price,
-    this.product_detail_picture
+    this.product_detail_picture,
+    this.product_detail_quantity,
   });
   @override
   _ProductViewDetailState createState() => _ProductViewDetailState();
