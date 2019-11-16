@@ -39,8 +39,17 @@ class _ProductCategoriesState extends State<ProductCategories> {
       appBar: AppBar(
         title: Text('Categories List',style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
-        leading: Icon(Icons.close,color: Colors.black)
+
+        leading:IconButton(
+          icon: Icon(
+            Icons.close,color: Colors.black
+          ),
+          onPressed: ()
+          {Navigator.pop(context);
+          },
+        )//leading: Icon(Icons.close,color: Colors.black)
         //  onPressed: Navigator.pop(),
+      
       ),
       body: FutureBuilder(
         future: _data,

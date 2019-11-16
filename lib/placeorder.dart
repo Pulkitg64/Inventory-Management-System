@@ -10,7 +10,6 @@ import 'horizontal_listview.dart';
 import 'products_grid_view.dart';
 import 'cart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'login.dart';
 import 'provider/user_provider.dart';
 class PlaceOrder extends StatefulWidget {
   @override
@@ -91,7 +90,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
 
             InkWell(
               onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CustPage()));
               },
               child: ListTile(
                 title: Text('Home Page'),
@@ -131,7 +130,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
               },
               child: ListTile(
                 title: Text('Categories'),
-                leading: Icon(Icons.dashboard),
+                leading: Icon(Icons.category),
               ),
             ),
 

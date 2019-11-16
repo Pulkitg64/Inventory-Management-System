@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hello_world/confirm_order.dart';
 
 class Single_cart_product extends StatefulWidget {
   @override
@@ -12,18 +13,20 @@ class _Single_cart_productState extends State<Single_cart_product> {
   Future getCart() async{
 
     var firestore = Firestore.instance;
-
-    int total = 0;
+    
     QuerySnapshot qn = await firestore.collection('cart').getDocuments();
     return qn.documents;
   }
 
+  
   @override
   void initState(){
     super.initState();
 
     _data = getCart();
   }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +109,9 @@ class _Single_cart_productState extends State<Single_cart_product> {
               ),
               Expanded(
                 child: MaterialButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ConfirmOrder()));
+                  },
                   child: Text("Check Out",style: TextStyle(color: Colors.white)),
                   color: Colors.orange,             
                 )

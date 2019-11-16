@@ -33,7 +33,14 @@ class _NextPageState extends State<NextPage> {
       appBar: AppBar(
         title: Text("${widget.value}",style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
-        leading: Icon(Icons.close,color: Colors.black)
+        leading:IconButton(
+          icon: Icon(
+            Icons.close,color: Colors.black
+          ),
+          onPressed: ()
+          {Navigator.pop(context);
+          },
+        )
         //  onPressed: Navigator.pop(),
       ),
       body: FutureBuilder(
@@ -51,11 +58,11 @@ class _NextPageState extends State<NextPage> {
               shrinkWrap: true,
               itemBuilder: (_, index){
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: InkWell(
                   onTap: ()=> Navigator.of(context).push(
                     MaterialPageRoute(builder: (context)=> new ProductViewDetail(
-           //passin the values of product grid view to product view details
+                      //passing the values of product grid view to product view details
                       product_detail_name: snapshot.data[index].data['name'],
                       product_detail_price: snapshot.data[index].data['price'],
                       product_detail_picture: snapshot.data[index].data['picture'],

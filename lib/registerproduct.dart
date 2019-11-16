@@ -48,7 +48,14 @@ class _HomeMaterialState extends State {
       appBar: AppBar(
         title: Text('Add Product',style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
-        leading: Icon(Icons.close,color: Colors.black,),
+        leading:IconButton(
+          icon: Icon(
+            Icons.close,color: Colors.black
+          ),
+          onPressed: ()
+          {Navigator.pop(context);
+          },
+        )
       ),
       body: Container(
         padding:
