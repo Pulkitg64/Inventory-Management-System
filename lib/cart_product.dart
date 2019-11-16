@@ -13,6 +13,7 @@ class _Single_cart_productState extends State<Single_cart_product> {
 
     var firestore = Firestore.instance;
 
+    int total = 0;
     QuerySnapshot qn = await firestore.collection('cart').getDocuments();
     return qn.documents;
   }
@@ -26,6 +27,15 @@ class _Single_cart_productState extends State<Single_cart_product> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.orange,
+        
+        title: Text('Your Cart',),
+        centerTitle: true,
+        actions: <Widget>[
+          new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
+        ],
+      ),
       body: FutureBuilder(
         future: _data,
         builder: (_,snapshot){
@@ -40,6 +50,7 @@ class _Single_cart_productState extends State<Single_cart_product> {
               itemCount: snapshot.data.length,
               shrinkWrap: true,
               itemBuilder: (_, index){
+                
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -81,6 +92,28 @@ class _Single_cart_productState extends State<Single_cart_product> {
           }
         }
       ),
+
+      bottomNavigationBar: 
+        Container(
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: ListTile(
+                  title: Text("Total"),
+                  subtitle: Text("₹230"),
+                )
+              ),
+              Expanded(
+                child: MaterialButton(
+                  onPressed: (){},
+                  child: Text("Check Out",style: TextStyle(color: Colors.white)),
+                  color: Colors.orange,             
+                )
+              ),
+            ],
+          ),
+        ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:hello_world/cart_product.dart';
 import 'package:hello_world/main.dart';
 import 'package:hello_world/productlist.dart';
 import 'customer.dart';
@@ -66,7 +67,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
         actions: <Widget>[
           new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
           new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),
-          onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Cart()));},)
+          onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Single_cart_product()));},)
         ],
       ),
     
@@ -108,7 +109,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
 
             InkWell(
               onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new Cart()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new Single_cart_product()));
               },
               child: ListTile(
                 title: Text('My Orders'),
