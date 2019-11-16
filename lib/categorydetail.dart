@@ -69,23 +69,36 @@ class _NextPageState extends State<NextPage> {
                       product_detail_quantity: snapshot.data[index].data['quantity'],
                     )
                   )
+                  
                   ),
-                  child: Card(
-                  elevation: 5.0,
-                  child: new Container(
-                      color: Colors.white,
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(16.0),
-                      child: Row(
+                
+                child: Container(
+                height: 150.0,
+                child: GridTile(
+                  child: Container(
+                    color: Colors.white,
+                    child: Image.asset('images/c3.jpg'),
+                  ),
+                  footer: Container(
+                    color: Colors.white70,
+                    child: ListTile(
+                      leading: Text(snapshot.data[index].data['name'], 
+                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0) ,),
+                      title: Row(
                         children: <Widget>[
-                          Text(snapshot.data[index].data['name'], style: TextStyle(color: Colors.black, fontSize: 20.0),),
-                          Icon(Icons.keyboard_arrow_right)
+                          Expanded(
+                            child: Text(snapshot.data[index].data['price'].toString(),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red) ,)
+                          )
                         ],
-                      )
+                      ),
+                    )
                   ),
                 ),
-              ),
-            );
+                
+              )
+              )
+              );
           });
           }
         }
