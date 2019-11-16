@@ -190,27 +190,27 @@ class _HomeMaterialState extends State {
   }
                       
   void validateAndUpload() async{
- if(_formKey.currentState.validate()){
-   setState(() =>isLoading = true);
+    if(_formKey.currentState.validate()){
+      setState(() =>isLoading = true);
 
-    if(_image1 != null){
-      String imageUrl1;
-      final FirebaseStorage storage = FirebaseStorage.instance;
-      final String picture1 = "${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
-      StorageUploadTask task1 =  storage.ref().child(picture1).putFile(_image1);
-      StorageTaskSnapshot snapshot1 = await task1.onComplete.then((snapshot)=>snapshot);
+      if(_image1 != null){
+        String imageUrl1;
+        final FirebaseStorage storage = FirebaseStorage.instance;
+        final String picture1 = "${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
+        StorageUploadTask task1 =  storage.ref().child(picture1).putFile(_image1);
+        StorageTaskSnapshot snapshot1 = await task1.onComplete.then((snapshot)=>snapshot);
          
-      task1.onComplete.then((snapshot1) async{
+        task1.onComplete.then((snapshot1) async{
 
-        imageUrl1 = await snapshot1.ref.getDownloadURL();
+          imageUrl1 = await snapshot1.ref.getDownloadURL();
         
-        _productService.uploadProduct(
-          productName: _productNameController.text,
-          category: _currentCategory,
-          price: int.parse(_productPriceController.text),
-          quantity: int.parse(_productQuantityController.text), 
-          image: imageUrl1 
-        );
+          _productService.uploadProduct(
+            productName: _productNameController.text,
+            category: _currentCategory,
+            price: int.parse(_productPriceController.text),
+            quantity: int.parse(_productQuantityController.text), 
+            image: imageUrl1 
+          );
           _formKey.currentState.reset();
       
           setState(() => isLoading = false);
@@ -219,13 +219,13 @@ class _HomeMaterialState extends State {
 
           Navigator.pop(context);
             
-          });
-        }
-        else
-        {
-          setState(() =>isLoading = false);
-          Fluttertoast.showToast(msg: 'at least one images must be provided');
-        }
+        });
+      }
+      else
+      {
+        setState(() =>isLoading = false);
+        Fluttertoast.showToast(msg: 'at least one images must be provided');
+      }
     }
   
   }

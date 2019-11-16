@@ -90,7 +90,7 @@ class _AdminState extends State<Admin> {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 children: <Widget>[
-                  Padding(
+             /*     Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: Card(
                       child: ListTile(
@@ -104,7 +104,7 @@ class _AdminState extends State<Admin> {
                             style: TextStyle(color: active, fontSize: 60.0),
                           )),
                     ),
-                  ),
+                  ),*/
                   Padding(
                     padding: const EdgeInsets.all(9.0),
                     child: Card(
@@ -174,7 +174,7 @@ class _AdminState extends State<Admin> {
                           )),
                     ),
                   ),
-                  Padding(
+                /*  Padding(
                     padding: const EdgeInsets.all(9.0),
                     child: Card(
                       child: ListTile(
@@ -188,7 +188,7 @@ class _AdminState extends State<Admin> {
                             style: TextStyle(color: active, fontSize: 60.0),
                           )),
                     ),
-                  ),
+                  ),*/  
                 ],
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:hello_world/main.dart';
+import 'package:hello_world/productlist.dart';
 import 'customer.dart';
 import 'product_categories.dart';
 import 'package:provider/provider.dart';
@@ -114,7 +115,15 @@ class _PlaceOrderState extends State<PlaceOrder> {
                 leading: Icon(Icons.shopping_basket),
               ),
             ),
-
+            InkWell(
+              onTap: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new ProductList()));
+              },
+              child: ListTile(
+                title: Text('Products'),
+                leading: Icon(Icons.dashboard),
+              ),
+            ),
             InkWell(
               onTap: (){
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new ProductCategories()));

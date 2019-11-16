@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:firebase_database/firebase_database.dart';
 class ProductList extends StatefulWidget {
   @override
   _ProductListState createState() => _ProductListState();
 }
 
 class _ProductListState extends State<ProductList> {
+  TextEditingController _searchTextController = TextEditingController();
+
  
  Future _data;
  Future getCat() async{
@@ -26,11 +28,31 @@ class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Products List',style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        leading: Icon(Icons.close,color: Colors.black)
-        //  onPressed: Navigator.pop(),
+     appBar: AppBar(
+
+        title:  Material(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.black.withOpacity(0.2),
+          elevation: 0.0,
+          child:  TextFormField(
+            controller: _searchTextController,                    
+            decoration: InputDecoration(
+              hintText: "  Search...",
+        
+              border: InputBorder.none,
+            ),
+            validator: (value) {
+              if (value.isEmpty) {
+                 return "The search field cannot be empty";
+              }                   
+              return null;
+            },
+          ),    
+        ),
+        actions: <Widget>[
+          new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
+         
+        ],
       ),
       body: FutureBuilder(
         future: _data,
@@ -65,7 +87,7 @@ class _ProductListState extends State<ProductList> {
                       child: Row(
                         children: <Widget>[
                           Text(snapshot.data[index].data['name'], style: TextStyle(color: Colors.black, fontSize: 20.0),),
-                           Text('Quantity:', style: TextStyle(color: Colors.black, fontSize: 20.0),),
+                          // Text('Quantity:', style: TextStyle(color: Colors.black, fontSize: 20.0),),
                           // Text(snapshot.data[index].data['quantity'], style: TextStyle(color: Colors.black, fontSize: 20.0),),
                           // Text('Price:', style: TextStyle(color: Colors.black, fontSize: 20.0),),
                           // Text(snapshot.data[index].data['price'], style: TextStyle(color: Colors.black, fontSize: 20.0),),

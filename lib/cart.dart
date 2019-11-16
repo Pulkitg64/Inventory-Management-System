@@ -19,8 +19,7 @@ class _CartState extends State<Cart> {
           new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
         ],
       ),
-      body: new CartProducts(),
-      
+      body: new Single_cart_product(),
       bottomNavigationBar: 
         Container(
           color: Colors.white,
@@ -30,18 +29,17 @@ class _CartState extends State<Cart> {
                 child: ListTile(
                   title: Text("Total"),
                   subtitle: Text("₹230"),
-                  )
-                ),
-
-                Expanded(
-                  child: MaterialButton(
-                    onPressed: (){},
-                    child: Text("Check Out",style: TextStyle(color: Colors.white)),
-                    color: Colors.orange,             
-                    )
                 )
-              ],
-            ),
+              ),
+              Expanded(
+                child: MaterialButton(
+                  onPressed: (){},
+                  child: Text("Check Out",style: TextStyle(color: Colors.white)),
+                  color: Colors.orange,             
+                )
+              ),
+            ],
+          ),
         ),
     );
   }

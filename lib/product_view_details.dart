@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hello_world/db/cartproduct.dart';
 import 'placeorder.dart';
 import 'cart.dart';
+import 'db/cartproduct.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 class ProductViewDetail extends StatefulWidget {
   final product_detail_name;
   final product_detail_price;
@@ -19,6 +23,16 @@ class ProductViewDetail extends StatefulWidget {
 }
 
 class _ProductViewDetailState extends State<ProductViewDetail> {
+  TextEditingController _productNameController = TextEditingController();
+  TextEditingController _productPriceController = TextEditingController();
+  CartService _cartService = CartService();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+   bool isLoading = false;
+
+ 
+  var _numbers = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  var _currentItemSelected = '1';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,117 +46,132 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
           new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Cart()));},)
         ],
       ),
-      body: ListView(
-        
-        children: <Widget>[
-          
-          Container(
-            height: 300.0,
-            child: GridTile(
-              child: Container(
-                color: Colors.white,
-                child: Image.asset(widget.product_detail_picture),
-              ),
-              footer: Container(
-                color: Colors.white70,
-                child: ListTile(
-                  leading: Text(widget.product_detail_name, 
-                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0) ,),
-                  title: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text("\₹${widget.product_detail_price}",
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red) ,)
-                      )
-                    ],
-                  ),
-                )
-              ),
-            ),
-            
-          ),
-          
-          // +===============================================
-//                    FIRST BUTTON QUANTITY BUTTON
-          //+================================================
-          Row(
+      body: Container(
+        padding:  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+        child: Builder(
+          builder: (context) => Form(
+            key: _formKey,
+            child: ListView(   
             children: <Widget>[
-              Expanded(
-                child: MaterialButton(
-                  onPressed: (){
-                    showDialog(context: context,
-                    builder: (context){
-                      return AlertDialog(
-                        title: Text("Quantity"),
-                        content: Text("Choose quantity of item "),
-                        actions: <Widget>[
-                          MaterialButton(onPressed: (){
-                            Navigator.of(context).pop(context);
-                          },
-                          child: Text("Close",style: TextStyle(color: Colors.blue),),
+              Container(
+                height: 300.0,
+                child: GridTile(
+                  child: Container(
+                    color: Colors.white,
+                    child: Image.asset(widget.product_detail_picture),
+                  ),
+                  footer: Container(
+                    color: Colors.white70,
+                    child: ListTile(
+                      leading: Text(widget.product_detail_name, 
+                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0) ,),
+                      title: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text("\₹${widget.product_detail_price}",
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red) ,)
                           )
                         ],
-                      );
-                    });
-
-                  },
-                  color: Colors.grey[200],
-                  textColor: Colors.black,
-                  child: Row(
-                    children: <Widget>[
-                      Text("Quantity"),
-                      Expanded(child: Icon(Icons.arrow_drop_down)),
-                      Expanded(
-                        child: MaterialButton(
-                          onPressed: (){},
-                          color: Colors.red,
-                          textColor: Colors.white,
-                          child: Row(
-                            children: <Widget>[
-                              Text("Add To Cart", textAlign: TextAlign.center,),
-                              IconButton(icon: Icon(Icons.add_shopping_cart),alignment: Alignment.centerRight,color: Colors.white,onPressed: (){},),
-                            ],
-                          ),
-                        ),
                       ),
-                      
-                      
-                    ],
+                    )
                   ),
-                  ),)
+                ),
+                
+              ),
+              
+              // +===============================================
+//                    FIRST BUTTON QUANTITY BUTTON
+              //+================================================
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: MaterialButton(
+                      onPressed: (){},
+                      color: Colors.grey[200],
+                      textColor: Colors.black,
+                      child: Row(
+                        children: <Widget>[
+                          Text("Quantity     "),
+                          Expanded(child: DropdownButton<String> (
+                            items: _numbers.map((String dropDownStringItem) {
+                              return DropdownMenuItem<String> (
+                                value: dropDownStringItem,
+                                child: Text(dropDownStringItem),
+                              );
+                            }).toList(),
+
+                            onChanged: (String newValueSelected) {
+                              _dropDownItemSelected(newValueSelected);
+
+                            },
+
+                            value : _currentItemSelected,
+                          ),
+                          ),
+                          Expanded(
+                            child: MaterialButton(
+                              onPressed: (){
+                                 validateAndUpload();
+                              },
+                              color: Colors.red,
+                              textColor: Colors.white,
+                              child: Row(
+                                children: <Widget>[
+                                  Text("Add To Cart", textAlign: TextAlign.center,),
+                                  IconButton(icon: Icon(Icons.add_shopping_cart),
+                                    alignment: Alignment.centerRight,
+                                    color: Colors.white,onPressed: (){
+                                    
+                                  },),
+                                ],
+                              ),
+                            ),
+                          ),
+                          
+                          
+                        ],
+                      ),
+                      ),)
+                ],
+              ),
+
+              Divider(),
+              Text(' Similar Products'),
+              Container(
+                height:300.0,
+                child: SimilarProducts(),
+              ),
             ],
           ),
-         // +===============================================
-//                    SECOND BUTTON
-          //+===============================================
-          //  Row(
-          //   children: <Widget>[
-          //     Expanded(
-          //       child: MaterialButton(
-          //         onPressed: (){},
-          //         color: Colors.red,
-          //         textColor: Colors.white,
-          //         child: Row(
-          //           children: <Widget>[
-          //             Expanded(child: Text("Add To Cart", textAlign: TextAlign.center,)),
-          //             IconButton(icon: Icon(Icons.add_shopping_cart),color: Colors.white,onPressed: (){},),
-          //           ],
-          //         ),
-          //         ),
-          //         ),
-
-                  
-          //   ],
-          // )
-          Divider(),
-          Text(' Similar Products'),
-          Container(
-            height:300.0,
-            child: SimilarProducts(),
-          ),
-        ],
+        )
+        ),
       )
     );
+  }
+
+  void _dropDownItemSelected(String newValueSelected) {
+    setState(() {
+      this._currentItemSelected = newValueSelected;
+    });
+  }
+
+  void validateAndUpload() async{
+    if(_formKey.currentState.validate()){
+      setState(() =>isLoading = true);
+        
+      _cartService.uploadProduct(
+        productName: widget.product_detail_name,
+        price: widget.product_detail_price,
+        quantity: int.parse(_currentItemSelected)
+      );
+      _formKey.currentState.reset();
+     
+      setState(() => isLoading = false);
+      Fluttertoast.showToast(msg: 'Product added to the Cart');
+      Navigator.pop(context);
+
+    
+    }
   }
 }
 
