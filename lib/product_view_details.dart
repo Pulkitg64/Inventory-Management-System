@@ -121,35 +121,24 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                           ),
                           ),
                           
-                          Expanded(
-                            
-                                                      child: Container(
-                              child: MaterialButton(
-                                onPressed: (){
-                                   validateAndUpload();
-                                },
-                                color: Colors.red,
-                                textColor: Colors.white,
-                                child: Text("Add To Cart", textAlign: TextAlign.right,),            
-                                // child: Wrap(
-                                //   children: <Widget>[
-                                //     Text("Add To Cart", textAlign: TextAlign.left,),
-                                //     IconButton(icon: Icon(Icons.add_shopping_cart),
-                                //       alignment: Alignment.centerRight,
-                                //       color: Colors.white,onPressed: (){
-                                      
-                                //     },),
-                                //   ],
-                                // ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: IconButton(icon: Icon(Icons.add_shopping_cart),
-                                     alignment: Alignment.bottomRight,
-                                     color: Colors.red,onPressed: (){
-                                       validateAndUpload();
-                                     },),
+                           Expanded(
+                            child: MaterialButton(
+                              onPressed: (){
+                                 validateAndUpload();
+                              },
+                              color: Colors.red,
+                              textColor: Colors.white,
+                              child: Row(
+                                children: <Widget>[
+                                  Text("Add To Cart", textAlign: TextAlign.center,),
+                                  IconButton(icon: Icon(Icons.add_shopping_cart),
+                                    alignment: Alignment.centerRight,
+                                    color: Colors.white,onPressed: (){
+                                    
+                                  },),
+                                ],
+                              )
+                            )
                           ),
                           //  Expanded(
                           //   child: IconButton(icon: Icon(Icons.favorite_border),
