@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'categorydetail.dart';
 
 class HorizontalList extends StatelessWidget {
   @override
@@ -57,20 +58,29 @@ class Category extends StatelessWidget {
     child: InkWell(onTap: (){},
       child: Container(
         width: 150.0,
-        child:ListTile(
-          title:Image.asset(
-          // IMAGE LOCATION
-            ImageLocation,
-            width: 100.0,
-            height:80.0,
+        child:InkWell(
+           onTap: (){
+                    var route = MaterialPageRoute(
+                      builder: (BuildContext context) => NextPage(value: ImageCaption),
+                    );
+                    Navigator.of(context).push(route);
+               //   Naator.push(context, new MaterialPageRoute(builder: (context) => ProductCategories(categ:  ProductCategories(snapshot.data[index].data['category']))));
+                  },
+          child: ListTile(
+            title:Image.asset(
+            // IMAGE LOCATION
+              ImageLocation,
+              width: 100.0,
+              height:80.0,
+              ),
+            subtitle: Container(
+             
+              child: Text(ImageCaption, textAlign: TextAlign.center,),
+              
+              ),
+              
             ),
-          subtitle: Container(
-           
-            child: Text(ImageCaption, textAlign: TextAlign.center,),
-            
-            ),
-            
-          )
+        )
         ),
       ),
     );

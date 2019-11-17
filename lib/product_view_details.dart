@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hello_world/cart_product.dart';
 import 'package:hello_world/db/cartproduct.dart';
 import 'placeorder.dart';
 import 'cart.dart';
@@ -43,7 +44,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
           child: Text('Place Order')),
         actions: <Widget>[
           new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
-          new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Cart()));},)
+          new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Single_cart_product()));},)
         ],
       ),
       body: Container(
@@ -249,16 +250,25 @@ class Similar_Single_prod extends StatelessWidget {
               ))
             ),
             child: GridTile(
-              footer: Container(
-                
-                color: Colors.white70,
-                child: ListTile(
-                  
-                  leading: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold,)),
-                  title: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),
+
+               footer: Container(
+              color: Colors.white,     
+              child: ListTile(
+                title: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold)),
+                trailing: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),),
+              )
                   ),
-                  )
-              ), child: Image.asset(
+              // footer: Container(
+                
+              //   color: Colors.white70,
+              //   child: ListTile(
+                  
+              //     leading: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold,)),
+              //     title: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),
+              //     ),
+              //     )
+              // ),
+               child: Image.asset(
                 product_pictures,
                 fit:BoxFit.cover,
                 ),

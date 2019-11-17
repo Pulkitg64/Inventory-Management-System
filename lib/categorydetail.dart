@@ -80,19 +80,11 @@ class _NextPageState extends State<NextPage> {
                     child: Image.asset('images/c3.jpg'),
                   ),
                   footer: Container(
-                    color: Colors.white70,
-                    child: ListTile(
-                      leading: Text(snapshot.data[index].data['name'], 
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0) ,),
-                      title: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(snapshot.data[index].data['price'].toString(),
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red) ,)
-                          )
-                        ],
-                      ),
-                    )
+              color: Colors.white,     
+              child: ListTile(
+                title: Text(snapshot.data[index].data['name'], style:TextStyle(fontWeight: FontWeight.bold)),
+                trailing: Text(snapshot.data[index].data['price'].toString(), style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),),
+              )
                   ),
                 ),
                 
