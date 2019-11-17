@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hello_world/cart_product.dart';
@@ -30,7 +31,17 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
    bool isLoading = false;
 
- 
+  // StorageReference _reference = product_detail_picture;
+  // String _downloadUrl;
+
+  // Future downloadImage() async {
+  //   String downloadAddress = _reference.getDownloadURL();
+  //   setState(() {
+  //     _downloadUrl= downloadAddress;
+  //   });
+
+  //   _downloadUrl= Image.network(_downloadUrl);
+  // }
   var _numbers = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   var _currentItemSelected = '1';
 
@@ -59,7 +70,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                 child: GridTile(
                   child: Container(
                     color: Colors.white,
-                    child: Image.asset(widget.product_detail_picture),
+                    child: Image.asset('images/c3.jpg'),
                   ),
                   footer: Container(
                     color: Colors.white70,
@@ -111,7 +122,9 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                             ),
                           ],
                           ),
+                          
                           Expanded(
+
                             child: MaterialButton(
                               onPressed: (){
                                  validateAndUpload();
@@ -127,10 +140,22 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                                     
                                   },),
                                 ],
+
                               ),
                             ),
                           ),
-                          
+                          Expanded(
+                            child: IconButton(icon: Icon(Icons.add_shopping_cart),
+                                     alignment: Alignment.bottomRight,
+                                     color: Colors.red,onPressed: (){
+                                       validateAndUpload();
+                                     },),
+                          ),
+                          //  Expanded(
+                          //   child: IconButton(icon: Icon(Icons.favorite_border),
+                          //            alignment: Alignment.bottomRight,
+                          //            color: Colors.red,onPressed: (){},),
+                          // ),
                           
                         ],
                       ),
@@ -152,6 +177,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
     );
   }
 
+  //widget dowloadImage
   void _dropDownItemSelected(String newValueSelected) {
     setState(() {
       this._currentItemSelected = newValueSelected;

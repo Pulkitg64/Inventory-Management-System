@@ -37,9 +37,8 @@ class _ProductCategoriesState extends State<ProductCategories> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categories List',style: TextStyle(color: Colors.black)),
+        title: Text('Categories',style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
-
         leading:IconButton(
           icon: Icon(
             Icons.close,color: Colors.black
@@ -47,10 +46,10 @@ class _ProductCategoriesState extends State<ProductCategories> {
           onPressed: ()
           {Navigator.pop(context);
           },
-        )//leading: Icon(Icons.close,color: Colors.black)
+        )
         //  onPressed: Navigator.pop(),
-      
       ),
+     
       body: FutureBuilder(
         future: _data,
         builder: (_,snapshot){

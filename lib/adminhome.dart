@@ -115,7 +115,7 @@ class _AdminState extends State<Admin> {
                           title: FlatButton.icon(
                             onPressed: null,
                             icon: Icon(Icons.category),
-                            label: Text("Categories")),
+                            label: Text("Category")),
                           subtitle: Text(
                             '23',
                             textAlign: TextAlign.center,
