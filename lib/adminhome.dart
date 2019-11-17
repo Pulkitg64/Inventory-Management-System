@@ -108,20 +108,25 @@ class _AdminState extends State<Admin> {
                   Padding(
                     padding: const EdgeInsets.all(9.0),
                     child: Card(
-                      child: ListTile(
-                        title: FlatButton.icon(
-                          onPressed: null,
-                          icon: Icon(Icons.category),
-                          label: Text("Categories")),
-                        subtitle: Text(
-                          '23',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: active, fontSize: 60.0),
-                            
-                        ),
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductCategories()));
-                        }        
+                      child: Wrap(
+                      children: <Widget>[
+                         ListTile(
+
+                          title: FlatButton.icon(
+                            onPressed: null,
+                            icon: Icon(Icons.category),
+                            label: Text("Categories")),
+                          subtitle: Text(
+                            '23',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: active, fontSize: 60.0),
+
+                          ),
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductCategories()));
+                          }
+                         ),
+                       ],
                       ),
                     ),
                   ),

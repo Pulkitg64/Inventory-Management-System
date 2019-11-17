@@ -116,7 +116,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                               },
                               color: Colors.red,
                               textColor: Colors.white,
-                              child: Row(
+                              child: Wrap(
                                 children: <Widget>[
                                   Text("Add To Cart", textAlign: TextAlign.center,),
                                   IconButton(icon: Icon(Icons.add_shopping_cart),
