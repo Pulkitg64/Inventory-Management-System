@@ -104,43 +104,43 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                       child: Row(
                         children: <Widget>[
                           Text("Quantity     "),
-                          Expanded(child: DropdownButton<String> (
-                            items: _numbers.map((String dropDownStringItem) {
-                              return DropdownMenuItem<String> (
-                                value: dropDownStringItem,
-                                child: Text(dropDownStringItem),
-                              );
-                            }).toList(),
+                          Wrap(children: <Widget>[
+                            DropdownButton<String> (
+                              items: _numbers.map((String dropDownStringItem) {
+                                return DropdownMenuItem<String> (
+                                  value: dropDownStringItem,
+                                  child: Text(dropDownStringItem),
+                                );
+                              }).toList(),
 
-                            onChanged: (String newValueSelected) {
-                              _dropDownItemSelected(newValueSelected);
+                              onChanged: (String newValueSelected) {
+                                _dropDownItemSelected(newValueSelected);
 
-                            },
+                              },
 
-                            value : _currentItemSelected,
-                          ),
+                              value : _currentItemSelected,
+                            ),
+                          ],
                           ),
                           
                           Expanded(
-                            
-                                                      child: Container(
-                              child: MaterialButton(
-                                onPressed: (){
-                                   validateAndUpload();
-                                },
-                                color: Colors.red,
-                                textColor: Colors.white,
-                                child: Text("Add To Cart", textAlign: TextAlign.right,),            
-                                // child: Wrap(
-                                //   children: <Widget>[
-                                //     Text("Add To Cart", textAlign: TextAlign.left,),
-                                //     IconButton(icon: Icon(Icons.add_shopping_cart),
-                                //       alignment: Alignment.centerRight,
-                                //       color: Colors.white,onPressed: (){
-                                      
-                                //     },),
-                                //   ],
-                                // ),
+
+                            child: MaterialButton(
+                              onPressed: (){
+                                 validateAndUpload();
+                              },
+                              color: Colors.red,
+                              textColor: Colors.white,
+                              child: Row(
+                                children: <Widget>[
+                                  Text("Add To Cart", textAlign: TextAlign.center,),
+                                  IconButton(icon: Icon(Icons.add_shopping_cart),
+                                    alignment: Alignment.centerRight,
+                                    color: Colors.white,onPressed: (){
+                                    
+                                  },),
+                                ],
+
                               ),
                             ),
                           ),
