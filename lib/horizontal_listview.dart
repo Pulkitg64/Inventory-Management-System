@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'place.dart';
 import 'categorydetail.dart';
 
 class HorizontalList extends StatelessWidget {
@@ -59,7 +60,7 @@ class Category extends StatelessWidget {
       child: Container(
         width: 150.0,
         child:InkWell(
-           onTap: (){
+            onTap: (){
                     var route = MaterialPageRoute(
                       builder: (BuildContext context) => NextPage(value: ImageCaption),
                     );
