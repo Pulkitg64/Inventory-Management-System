@@ -104,24 +104,31 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                       child: Row(
                         children: <Widget>[
                           Text("Quantity     "),
-                          Expanded(child: DropdownButton<String> (
-                            items: _numbers.map((String dropDownStringItem) {
-                              return DropdownMenuItem<String> (
-                                value: dropDownStringItem,
-                                child: Text(dropDownStringItem),
-                              );
-                            }).toList(),
+                          Wrap(children: <Widget>[
+                            DropdownButton<String> (
+                              items: _numbers.map((String dropDownStringItem) {
+                                return DropdownMenuItem<String> (
+                                  value: dropDownStringItem,
+                                  child: Text(dropDownStringItem),
+                                );
+                              }).toList(),
 
-                            onChanged: (String newValueSelected) {
-                              _dropDownItemSelected(newValueSelected);
+                              onChanged: (String newValueSelected) {
+                                _dropDownItemSelected(newValueSelected);
 
-                            },
+                              },
 
-                            value : _currentItemSelected,
-                          ),
+                              value : _currentItemSelected,
+                            ),
+                          ],
                           ),
                           
+<<<<<<< HEAD
                            Expanded(
+=======
+                          Expanded(
+
+>>>>>>> 413e33443631c813a7eb192e14efd115e72aa301
                             child: MaterialButton(
                               onPressed: (){
                                  validateAndUpload();
@@ -137,8 +144,21 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                                     
                                   },),
                                 ],
+<<<<<<< HEAD
                               )
                             )
+=======
+
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: IconButton(icon: Icon(Icons.add_shopping_cart),
+                                     alignment: Alignment.bottomRight,
+                                     color: Colors.red,onPressed: (){
+                                       validateAndUpload();
+                                     },),
+>>>>>>> 413e33443631c813a7eb192e14efd115e72aa301
                           ),
                           //  Expanded(
                           //   child: IconButton(icon: Icon(Icons.favorite_border),
