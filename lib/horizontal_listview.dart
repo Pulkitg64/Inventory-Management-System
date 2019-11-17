@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'place.dart';
 import 'categorydetail.dart';
 
 class HorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.0,
+      height: 120.0,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
           Category(
             ImageLocation: 'images/m1.png',
-            ImageCaption: 'Groceries ',
+            ImageCaption: 'Groceries & Staples',
             
           ),
           Category(

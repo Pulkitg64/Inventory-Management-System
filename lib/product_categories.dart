@@ -36,6 +36,19 @@ class _ProductCategoriesState extends State<ProductCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Categories',style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        leading:IconButton(
+          icon: Icon(
+            Icons.close,color: Colors.black
+          ),
+          onPressed: ()
+          {Navigator.pop(context);
+          },
+        )
+        //  onPressed: Navigator.pop(),
+      ),
      
       body: FutureBuilder(
         future: _data,
