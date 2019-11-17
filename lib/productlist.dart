@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'product_view_details.dart';
 class ProductList extends StatefulWidget {
   @override
@@ -52,7 +51,6 @@ class _ProductListState extends State<ProductList> {
         ),
         actions: <Widget>[
           new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
-         
         ],
       ),
       body: FutureBuilder(
@@ -69,10 +67,11 @@ class _ProductListState extends State<ProductList> {
               itemCount: snapshot.data.length,
               shrinkWrap: true,
               itemBuilder: (_, index){
-              return Padding(
+
+                return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: InkWell(
-                   onTap: ()=> Navigator.of(context).push(
+                  onTap: ()=> Navigator.of(context).push(
                     MaterialPageRoute(builder: (context)=> new ProductViewDetail(
                       //passing the values of product grid view to product view details
                       product_detail_name: snapshot.data[index].data['name'],
@@ -81,28 +80,32 @@ class _ProductListState extends State<ProductList> {
                       product_detail_quantity: snapshot.data[index].data['quantity'],
                     )
                   )
+                  
                   ),
-                  child: Card(
-                  elevation: 5.0,
-                  child: new Container(
-                      color: Colors.white,
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(16.0),
-                      child: Row(
-                        children: <Widget>[
-                          Text(snapshot.data[index].data['name'], style: TextStyle(color: Colors.black, fontSize: 20.0),),
-                          // Text('Quantity:', style: TextStyle(color: Colors.black, fontSize: 20.0),),
-                          // Text(snapshot.data[index].data['quantity'], style: TextStyle(color: Colors.black, fontSize: 20.0),),
-                          // Text('Price:', style: TextStyle(color: Colors.black, fontSize: 20.0),),
-                          // Text(snapshot.data[index].data['price'], style: TextStyle(color: Colors.black, fontSize: 20.0),),
-                          Icon(Icons.keyboard_arrow_right)
-                        ],
-                      )
+                
+                child: Container(
+                height: 150.0,
+                child: GridTile(
+                  child: Container(
+                    color: Colors.white,
+                    child: Image.asset('images/c3.jpg'),
                   ),
+
+                  footer: Container(
+              color: Colors.white,     
+              child: ListTile(
+                title: Text(snapshot.data[index].data['name'], style:TextStyle(fontWeight: FontWeight.bold)),
+                trailing: Text(snapshot.data[index].data['price'].toString(), style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),),
+              )
+                  ),
+              
                 ),
+                
+              )
               ),
             );
-          });
+            }
+          );
           }
         }
       )
