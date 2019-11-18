@@ -29,10 +29,21 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
   CartService _cartService = CartService();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  String _currentItemSelected = '1';
+  String quant = '0';
+  var _numbers = ['0'];
+   @override
+  void initState(){
+    _getQuantity();
+  }
 
+  void quantityD(){
+    _numbers.removeLast();
+    for(int i=1;i<=int.parse(quant);i++){
+    _numbers.add(i.toString());}
+  }
 
-  var _numbers = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  var _currentItemSelected = '1';
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +70,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                       child: GridTile(
                         child: Container(
                           color: Colors.white,
-                          child: Image.asset(widget.product_detail_picture),
+                          child: Image.network(widget.product_detail_picture),
                         ),
                         footer: Container(
                             color: Colors.white70,
@@ -152,11 +163,31 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
     );
   }
 
-  void _dropDownItemSelected(String newValueSelected) {
-    setState(() {
-      this._currentItemSelected = newValueSelected;
-    });
+  // void changeSelectedQuantity(String selectedCategory) 
+  // {
+  //   setState(() => _currentItemSelected= selectedCategory);
+  // }
+   _getQuantity() async{
+
+     setState(() {
+       quant = widget.product_detail_quantity.toString();
+       quantityD();
+       _currentItemSelected = '1';
+     });
+     
+
+      // List<DocumentSnapshot> data = await _categoryService.getCategories();                         
+      // print(data.length);
+      // setState((){
+      // categories = data;
+      // categoriesDropDown = getCategoriesDropdown();
+      // _currentCategory = categories[0].data['category'];
   }
+   void _dropDownItemSelected(String newValueSelected) {
+     setState(() {
+       _currentItemSelected = newValueSelected;
+     });
+   }
 
   void validateAndUpload() async{
     if(_formKey.currentState.validate()){
