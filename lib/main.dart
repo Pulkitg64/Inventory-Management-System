@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         'Customer': (BuildContext context)=> CustPage(),
         'Shopkeeper': (BuildContext context)=> Admin(),  
         //'Admin': (BuildContext context)=> Admin(),
-        'Place Order': (BuildContext context)=> PlaceOrder(),
+        //'Place Order': (BuildContext context)=> PlaceOrder(),
       
         //'Medical': (BuildContext context)=> MedicalLogin(),
         //'Login': (BuildContext context)=> Login(),
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    var widgetList = ["Customer","Shopkeeper","Place Order"];
+    var widgetList = ["Customer","Shopkeeper",];
 
     return Scaffold(
       appBar: AppBar(

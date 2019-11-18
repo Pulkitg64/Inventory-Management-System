@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hello_world/confirm_order.dart';
-
 class Single_cart_product extends StatefulWidget {
   @override
   _Single_cart_productState createState() => _Single_cart_productState();
@@ -17,16 +16,12 @@ class _Single_cart_productState extends State<Single_cart_product> {
     QuerySnapshot qn = await firestore.collection('cart').getDocuments();
     return qn.documents;
   }
-
-  
   @override
   void initState(){
     super.initState();
 
     _data = getCart();
   }
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +54,7 @@ class _Single_cart_productState extends State<Single_cart_product> {
                   child: Card(
                    child: ListTile(
                     // =================LEADING PICTURE===========
-                    //  leading: Image.asset(cart_product_pictures,width: 80.0,height: 80.0),
+                    leading: Image.network(snapshot.data[index].data['picture'],width: 80.0,height: 80.0),
                     //===================TITLE=================
                     title: Text(snapshot.data[index].data['name']),
                     //===================SUBTITLE===============

@@ -5,7 +5,7 @@ class CartService{
   Firestore _firestore = Firestore.instance;
   String ref = 'cart';
 
-  void uploadProduct({String productName, int price, int quantity,}){
+  void uploadProduct({String productName, int price, int quantity, String image}){
     var id = Uuid();
     String productId = id.v1();
 
@@ -14,7 +14,7 @@ class CartService{
       'id': productId,
       'quantity': quantity,
       'price': price,
-      
+      'picture' :image,
 
     });
   

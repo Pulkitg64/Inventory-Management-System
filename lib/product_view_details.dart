@@ -42,9 +42,6 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
     for(int i=1;i<=int.parse(quant);i++){
     _numbers.add(i.toString());}
   }
-
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +119,10 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                                   ),
                                 ],
                                 ),
+
+                    // +===============================================
+//                    ADD TO CART BUTTON
+                    //+================================================
                                 Expanded(
                                   child: MaterialButton(
                                     onPressed: (){
@@ -162,11 +163,6 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
         )
     );
   }
-
-  // void changeSelectedQuantity(String selectedCategory) 
-  // {
-  //   setState(() => _currentItemSelected= selectedCategory);
-  // }
    _getQuantity() async{
 
      setState(() {
@@ -174,14 +170,6 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
        quantityD();
        _currentItemSelected = '1';
      });
-     
-
-      // List<DocumentSnapshot> data = await _categoryService.getCategories();                         
-      // print(data.length);
-      // setState((){
-      // categories = data;
-      // categoriesDropDown = getCategoriesDropdown();
-      // _currentCategory = categories[0].data['category'];
   }
    void _dropDownItemSelected(String newValueSelected) {
      setState(() {
@@ -196,7 +184,8 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
       _cartService.uploadProduct(
           productName: widget.product_detail_name,
           price: widget.product_detail_price,
-          quantity: int.parse(_currentItemSelected)
+          quantity: int.parse(_currentItemSelected),
+          image: widget.product_detail_picture
       );
       _formKey.currentState.reset();
 
