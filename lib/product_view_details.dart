@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hello_world/cart_product.dart';
@@ -29,164 +28,130 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
   TextEditingController _productPriceController = TextEditingController();
   CartService _cartService = CartService();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-   bool isLoading = false;
+  bool isLoading = false;
 
-  // StorageReference _reference = product_detail_picture;
-  // String _downloadUrl;
 
-  // Future downloadImage() async {
-  //   String downloadAddress = _reference.getDownloadURL();
-  //   setState(() {
-  //     _downloadUrl= downloadAddress;
-  //   });
-
-  //   _downloadUrl= Image.network(_downloadUrl);
-  // }
   var _numbers = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   var _currentItemSelected = '1';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange,
-        title: InkWell(
-          onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new PlaceOrder()));},
-          child: Text('Place Order')),
-        actions: <Widget>[
-          new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
-          new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Single_cart_product()));},)
-        ],
-      ),
-      body: Container(
-        padding:  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-        child: Builder(
-          builder: (context) => Form(
-            key: _formKey,
-            child: ListView(   
-            children: <Widget>[
-              Container(
-                height: 300.0,
-                child: GridTile(
-                  child: Container(
-                    color: Colors.white,
-                    child: Image.asset('images/c3.jpg'),
-                  ),
-                  footer: Container(
-                    color: Colors.white70,
-                    child: ListTile(
-                      leading: Text(widget.product_detail_name, 
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0) ,),
-                      title: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text("\₹${widget.product_detail_price}",
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red) ,)
-                          )
-                        ],
-                      ),
-                    )
-                  ),
-                ),
-                
-              ),
-              
-              // +===============================================
-//                    FIRST BUTTON QUANTITY BUTTON
-              //+================================================
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: MaterialButton(
-                      onPressed: (){},
-                      color: Colors.grey[200],
-                      textColor: Colors.black,
-                      child: Row(
-                        children: <Widget>[
-                          Text("Quantity     "),
-                          Wrap(children: <Widget>[
-                            DropdownButton<String> (
-                              items: _numbers.map((String dropDownStringItem) {
-                                return DropdownMenuItem<String> (
-                                  value: dropDownStringItem,
-                                  child: Text(dropDownStringItem),
-                                );
-                              }).toList(),
-
-                              onChanged: (String newValueSelected) {
-                                _dropDownItemSelected(newValueSelected);
-
-                              },
-
-                              value : _currentItemSelected,
-                            ),
-                          ],
-                          ),
-                          
-<<<<<<< HEAD
-                           Expanded(
-=======
-                          Expanded(
-
->>>>>>> 413e33443631c813a7eb192e14efd115e72aa301
-                            child: MaterialButton(
-                              onPressed: (){
-                                 validateAndUpload();
-                              },
-                              color: Colors.red,
-                              textColor: Colors.white,
-                              child: Row(
+        appBar: AppBar(
+          backgroundColor: Colors.orange,
+          title: InkWell(
+              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new PlaceOrder()));},
+              child: Text('Place Order')),
+          actions: <Widget>[
+            new IconButton(icon: Icon(Icons.search,color: Colors.black),onPressed: (){},),
+            new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.black),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> new Single_cart_product()));},)
+          ],
+        ),
+        body: Container(
+          padding:  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+          child: Builder(
+              builder: (context) => Form(
+                key: _formKey,
+                child: ListView(
+                  children: <Widget>[
+                    Container(
+                      height: 300.0,
+                      child: GridTile(
+                        child: Container(
+                          color: Colors.white,
+                          child: Image.network(widget.product_detail_picture),
+                        ),
+                        footer: Container(
+                            color: Colors.white70,
+                            child: ListTile(
+                              leading: Text(widget.product_detail_name,
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0) ,),
+                              title: Row(
                                 children: <Widget>[
-                                  Text("Add To Cart", textAlign: TextAlign.center,),
-                                  IconButton(icon: Icon(Icons.add_shopping_cart),
-                                    alignment: Alignment.centerRight,
-                                    color: Colors.white,onPressed: (){
-                                    
-                                  },),
+                                  Expanded(
+                                      child: Text("\₹${widget.product_detail_price}",
+                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red) ,)
+                                  )
                                 ],
-<<<<<<< HEAD
-                              )
-                            )
-=======
-
                               ),
-                            ),
-                          ),
-                          Expanded(
-                            child: IconButton(icon: Icon(Icons.add_shopping_cart),
-                                     alignment: Alignment.bottomRight,
-                                     color: Colors.red,onPressed: (){
-                                       validateAndUpload();
-                                     },),
->>>>>>> 413e33443631c813a7eb192e14efd115e72aa301
-                          ),
-                          //  Expanded(
-                          //   child: IconButton(icon: Icon(Icons.favorite_border),
-                          //            alignment: Alignment.bottomRight,
-                          //            color: Colors.red,onPressed: (){},),
-                          // ),
-                          
-                        ],
+                            )
+                        ),
                       ),
-                      ),)
-                ],
-              ),
 
-              Divider(),
-              Text(' Similar Products'),
-              Container(
-                height:300.0,
-                child: SimilarProducts(),
-              ),
-            ],
+                    ),
+
+                    // +===============================================
+//                    FIRST BUTTON QUANTITY BUTTON
+                    //+================================================
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: MaterialButton(
+                            onPressed: (){},
+                            color: Colors.grey[200],
+                            textColor: Colors.black,
+                            child: Row(
+                              children: <Widget>[
+                                Text("Quantity     "),
+                                Wrap(children: <Widget>[
+                                  DropdownButton<String> (
+                                    items: _numbers.map((String dropDownStringItem) {
+                                      return DropdownMenuItem<String> (
+                                        value: dropDownStringItem,
+                                        child: Text(dropDownStringItem),
+                                      );
+                                    }).toList(),
+
+                                    onChanged: (String newValueSelected) {
+                                      _dropDownItemSelected(newValueSelected);
+
+                                    },
+
+                                    value : _currentItemSelected,
+                                  ),
+                                ],
+                                ),
+                                Expanded(
+                                  child: MaterialButton(
+                                    onPressed: (){
+                                      validateAndUpload();
+                                    },
+                                    color: Colors.red,
+                                    textColor: Colors.white,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Text("Add To Cart", textAlign: TextAlign.center,),
+                                        IconButton(icon: Icon(Icons.add_shopping_cart),
+                                          alignment: Alignment.centerRight,
+                                          color: Colors.white,onPressed: (){
+
+                                          },),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+
+                              ],
+                            ),
+                          ),)
+                      ],
+                    ),
+
+                    Divider(),
+                    Text(' Similar Products'),
+                    Container(
+                      height:300.0,
+                      child: SimilarProducts(),
+                    ),
+                  ],
+                ),
+              )
           ),
         )
-        ),
-      )
     );
   }
 
-  //widget dowloadImage
   void _dropDownItemSelected(String newValueSelected) {
     setState(() {
       this._currentItemSelected = newValueSelected;
@@ -196,19 +161,19 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
   void validateAndUpload() async{
     if(_formKey.currentState.validate()){
       setState(() =>isLoading = true);
-        
+
       _cartService.uploadProduct(
-        productName: widget.product_detail_name,
-        price: widget.product_detail_price,
-        quantity: int.parse(_currentItemSelected)
+          productName: widget.product_detail_name,
+          price: widget.product_detail_price,
+          quantity: int.parse(_currentItemSelected)
       );
       _formKey.currentState.reset();
-     
+
       setState(() => isLoading = false);
       Fluttertoast.showToast(msg: 'Product added to the Cart');
       Navigator.pop(context);
 
-    
+
     }
   }
 }
@@ -221,7 +186,7 @@ class SimilarProducts extends StatefulWidget {
 
 class _SimilarProductsState extends State<SimilarProducts> {
   var product_list=[
-     {
+    {
       "name":"Amul Butter",
       "picture":"images/c6.jpeg",
       "price":"30",
@@ -230,7 +195,7 @@ class _SimilarProductsState extends State<SimilarProducts> {
       "name":"Shampoo",
       "picture":"images/c7.jpg",
       "price":"200",
-    }, 
+    },
     {
       "name":"Corn Flakes",
       "picture":"images/c8.jpeg",
@@ -240,14 +205,14 @@ class _SimilarProductsState extends State<SimilarProducts> {
       "name":"Hide n Seek",
       "picture":"images/c4.jpg",
       "price":"30",
-    }, 
+    },
   ];
   @override
   Widget build(BuildContext context) {
-      return GridView.builder(
+    return GridView.builder(
       itemCount: product_list.length,
       gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2
+          crossAxisCount: 2
       ),
       itemBuilder:(BuildContext context,int index){
         return Similar_Single_prod(
@@ -256,7 +221,7 @@ class _SimilarProductsState extends State<SimilarProducts> {
           product_price: product_list[index]['price'],
         );
       },
-      
+
     );
   }
 }
@@ -277,42 +242,42 @@ class Similar_Single_prod extends StatelessWidget {
       child: Hero(
         tag:product_name,
         child: Material(
-          child: InkWell(
-            onTap: ()=> Navigator.of(context).push(
-              MaterialPageRoute(builder: (context)=> new ProductViewDetail(
-                //passing the values of product grid view to product view details
-                product_detail_name: product_name,
-                product_detail_price: product_price,
-                product_detail_picture: product_pictures,
-              ))
-            ),
-            child: GridTile(
-
-               footer: Container(
-              color: Colors.white,     
-              child: ListTile(
-                title: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold)),
-                trailing: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),),
-              )
-                  ),
-              // footer: Container(
-                
-              //   color: Colors.white70,
-              //   child: ListTile(
-                  
-              //     leading: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold,)),
-              //     title: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),
-              //     ),
-              //     )
-              // ),
-               child: Image.asset(
-                product_pictures,
-                fit:BoxFit.cover,
+            child: InkWell(
+                onTap: ()=> Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context)=> new ProductViewDetail(
+                      //passing the values of product grid view to product view details
+                      product_detail_name: product_name,
+                      product_detail_price: product_price,
+                      product_detail_picture: product_pictures,
+                    ))
                 ),
+                child: GridTile(
+
+                  footer: Container(
+                      color: Colors.white,
+                      child: ListTile(
+                        title: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold)),
+                        trailing: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),),
+                      )
+                  ),
+                  // footer: Container(
+
+                  //   color: Colors.white70,
+                  //   child: ListTile(
+
+                  //     leading: Text(product_name, style:TextStyle(fontWeight: FontWeight.bold,)),
+                  //     title: Text("\₹$product_price", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800,),
+                  //     ),
+                  //     )
+                  // ),
+                  child: Image.asset(
+                    product_pictures,
+                    fit:BoxFit.cover,
+                  ),
+                )
             )
-           )
-        ), 
         ),
+      ),
     );
   }
 }

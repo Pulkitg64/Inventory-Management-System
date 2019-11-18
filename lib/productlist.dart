@@ -88,7 +88,8 @@ class _ProductListState extends State<ProductList> {
                 child: GridTile(
                   child: Container(
                     color: Colors.white,
-                    child: Image.asset('images/c3.jpg'),
+                    //child: Image.asset('images/c3.jpg'),
+                    child: Image.network(snapshot.data[index].data['picture']),
                   ),
 
                   footer: Container(
