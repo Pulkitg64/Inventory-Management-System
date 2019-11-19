@@ -14,7 +14,7 @@ class HomeMaterial extends StatefulWidget {
   _HomeMaterialState createState() => _HomeMaterialState();
 }
 class _HomeMaterialState extends State {
-  Page _selectedPage = Page.Camera;
+  Page _selectedPage = Page.Gallery;
   CategoryService _categoryService = CategoryService();
   ProductService _productService = ProductService();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
