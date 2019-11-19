@@ -6,12 +6,15 @@ import 'db/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+enum Page { Camera, Gallery }
+
 
 class HomeMaterial extends StatefulWidget {
   @override
   _HomeMaterialState createState() => _HomeMaterialState();
 }
 class _HomeMaterialState extends State {
+  Page _selectedPage = Page.Camera;
   CategoryService _categoryService = CategoryService();
   ProductService _productService = ProductService();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -20,8 +23,10 @@ class _HomeMaterialState extends State {
   TextEditingController _productQuantityController = TextEditingController();
   List<DocumentSnapshot> categories = <DocumentSnapshot>[];
   List<DropdownMenuItem<String>> categoriesDropDown= <DropdownMenuItem<String>>[];
+   MaterialColor active = Colors.red;
+  MaterialColor notActive = Colors.grey;
   String _currentCategory = "test";
-
+  bool typeFlag = false;
   File _image1;
   bool isLoading = false;
   
@@ -73,18 +78,95 @@ class _HomeMaterialState extends State {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: OutlineButton(
-                              borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 2.5),
-                              onPressed: (){
-                                _selectImage(ImagePicker.pickImage(source: ImageSource.gallery), 1);
-                              },
-                              child: _displayChild1()
+                                borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 2.5),
+                                onPressed: (){
+                                  if(typeFlag == false)
+                                  {
+                                    _selectImage(ImagePicker.pickImage(source: ImageSource.gallery), 1);
+                                  }
+                                  else
+                                  {
+                                    _selectImage(ImagePicker.pickImage(source: ImageSource.camera), 1);
+                                  }
+                                },
+                                child: _displayChild1()
                             ),
                           ),
                         ),
                       ],
                     ),
+                   
+                   Padding(padding: EdgeInsets.all(8), 
+                      child: Text('Select an option then click on "+" ',style: TextStyle(color: Colors.red),),),
+                
+                  Row(    
+                    children: <Widget> [
+                       Expanded(
+                        child: FlatButton.icon(
+                          color: Colors.blue,
+                          textColor: Colors.white,
+                          padding: EdgeInsets.all(6),
+                          onPressed: (){
+                            typeFlag = false;
+                            setState(() => _selectedPage = Page.Gallery);
+                          },
+                          icon: Icon(
+                            Icons.storage,
+                            color: _selectedPage == Page.Gallery? active: notActive,
+                          ),
+                          label: Text('Use Gallery')
+                        )
 
-                    Padding(
+                      ),
+                       Padding(padding: EdgeInsets.all(8), 
+                     child: Text('or'),),
+                      Expanded(
+                        child: FlatButton.icon(
+                          color: Colors.blue,
+                          textColor: Colors.white,
+                          padding: EdgeInsets.all(6),
+                          onPressed: (){
+                            typeFlag = true;
+                            setState(() => _selectedPage = Page.Camera);
+                          },
+                          icon: Icon(
+                            Icons.camera,
+                            color: _selectedPage == Page.Camera? active: notActive,
+                          ),
+                          label: Text('Take Picture')
+                        )
+                      ),
+                     
+                    //   FlatButton(
+                    //       color: Colors.blue,
+                    //       textColor: Colors.white,
+                    //       padding: EdgeInsets.all(6),
+                    //       onPressed: ()
+                    //       {
+                    //         typeFlag = false;
+                    //       },
+                    //       child: Text("Use Gallery", style: TextStyle(fontSize: 15.0),)
+                          
+                    //   ),
+                    //   Icon(Icons.storage),
+                    //   Padding(padding: EdgeInsets.all(8), 
+                    //   child: Text('or'),),
+                    //   FlatButton(
+                    //       color: Colors.blue,
+                    //       textColor: Colors.white,
+                    //       padding: EdgeInsets.all(6),
+                    //       onPressed: ()
+                    //       {
+                    //         typeFlag = true;
+                    //       },
+                          
+                    //       child: Text("Take Picture", style: TextStyle(fontSize: 15.0),)
+                    //   ),
+                    //     Icon(Icons.camera)
+                     ]
+                  ),
+
+                  Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         controller: _productNameController,
@@ -94,10 +176,8 @@ class _HomeMaterialState extends State {
                              return 'Please enter product name';
                           }
                         },
-                      ),
-                    ),
-                  
-                  
+                      )
+                  ),
                   Row(
                     children: <Widget>[ 
                       Padding(
@@ -236,4 +316,4 @@ class _HomeMaterialState extends State {
     }
   
   }
-}
+}       

@@ -38,9 +38,7 @@ class _AdminState extends State<Admin> {
                       },
                       icon: Icon(
                         Icons.dashboard,
-                        color: _selectedPage == Page.dashboard
-                            ? active
-                            : notActive,
+                        color: _selectedPage == Page.dashboard ? active : notActive,
                       ),
                       label: Text('Dashboard'))),
               Expanded(
@@ -50,8 +48,7 @@ class _AdminState extends State<Admin> {
                       },
                       icon: Icon(
                         Icons.sort,
-                        color:
-                            _selectedPage == Page.manage ? active : notActive,
+                        color:_selectedPage == Page.manage ? active : notActive,
                       ),
                       label: Text('Manage'))),
             ],
