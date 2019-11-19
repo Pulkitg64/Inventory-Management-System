@@ -21,7 +21,7 @@ class _HomeMaterialState extends State {
   List<DocumentSnapshot> categories = <DocumentSnapshot>[];
   List<DropdownMenuItem<String>> categoriesDropDown= <DropdownMenuItem<String>>[];
   String _currentCategory = "test";
-
+  bool typeFlag = false;
   File _image1;
   bool isLoading = false;
   
@@ -73,31 +73,47 @@ class _HomeMaterialState extends State {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: OutlineButton(
-                              borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 2.5),
-                              onPressed: (){
-                                _selectImage(ImagePicker.pickImage(source: ImageSource.gallery), 1);
-                              },
-                              child: _displayChild1()
+                                borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 2.5),
+                                onPressed: (){
+                                  if(typeFlag == false)
+                                  {
+                                    _selectImage(ImagePicker.pickImage(source: ImageSource.gallery), 1);
+                                  }
+                                  else
+                                  {
+                                    _selectImage(ImagePicker.pickImage(source: ImageSource.camera), 1);
+                                  }
+                                },
+                                child: _displayChild1()
                             ),
                           ),
                         ),
                       ],
                     ),
-
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        controller: _productNameController,
-                        decoration:InputDecoration(labelText: 'Product Name'),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                             return 'Please enter product name';
-                          }
-                        },
+                  Row(
+                    children: <Widget> [
+                      FlatButton(
+                          color: Colors.red,
+                          textColor: Colors.white,
+                          padding: EdgeInsets.all(6),
+                          onPressed: ()
+                          {
+                            typeFlag = false;
+                          },
+                          child: Text("Use Image from Gallery", style: TextStyle(fontSize: 15.0),)
                       ),
-                    ),
-                  
-                  
+                      FlatButton(
+                          color: Colors.red,
+                          textColor: Colors.white,
+                          padding: EdgeInsets.all(6),
+                          onPressed: ()
+                          {
+                            typeFlag = true;
+                          },
+                          child: Text("Use Image from Camera", style: TextStyle(fontSize: 15.0),)
+                      ),
+                    ]
+                  ),
                   Row(
                     children: <Widget>[ 
                       Padding(
